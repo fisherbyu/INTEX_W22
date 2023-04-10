@@ -35,6 +35,12 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+//CSP Header, allow bootstrap from CDN
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Add("Content-Security-Policy", "default-src 'self'; font-src 'self' fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; script-src 'self'; img-src 'self'");
+    await next();
+});
 
 app.MapControllerRoute(
     name: "default",

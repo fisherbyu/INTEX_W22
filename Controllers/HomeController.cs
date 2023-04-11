@@ -21,10 +21,9 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult DataPage()
+    public IActionResult BurialData()
     {
-        var data = DbContext.Books.ToList();
-        return View(data);
+        return View();
     }
 
     public IActionResult Privacy()

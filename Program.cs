@@ -1,22 +1,27 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BYU_EGYPT_INTEX.Data;
+using BYU_EGYPT_INTEX.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var authConnectString = builder.Configuration["ConnectionStrings:AuthLink"];
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(authConnectString));
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
 
-//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//var AppconnectionString = builder.Configuration.GetConnectionString("DefaultAppConnection");
 //builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseSqlite(connectionString));
+//    options.UseSqlite(AppconnectionString));
 //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
 //Connect Database:
 var conectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<egyptbyuContext>(options =>
     options.UseNpgsql(conectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

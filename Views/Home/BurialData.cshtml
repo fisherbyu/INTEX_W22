@@ -6,3 +6,38 @@
 
 <p>Here is our database of the different burials our team has discovered.  Use our built in filters to explor the data.</p>
 
+@model BurialmainsViewModel
+
+<table class="table table-bordered table-striped">
+    <thead class="font-weight-bold">
+        <tr>
+            <td>Textile color</td>
+            <td>Textile structure</td>
+            <td>Sex</td>
+            <td>Burial Depth</td>
+            <td>Estimate Stature</td>
+            <td>Age at Death</td>
+            <td>Head Direction</td>
+            <td>Burial ID (SquareNorthSouth, NorthSouth, SquareEastWest, EastWest, Area, Burial Number)</td>
+            <td>Textile Function</td>
+            <td>Hair Color</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var burial in Model.Burialmains)
+        {
+            <tr key="@burial.Id">
+                <td>@burial.Id</td>
+                @*<td>@burial</td>
+                <td>@burial</td>
+                <td>@burial</td>
+                <td>@burial</td>
+                <td>@burial</td>
+                <td>@burial</td>
+                <td>@burial</td>
+                <td>@burial</td>
+                <td>@burial</td>*@
+            </tr>
+        }
+    </tbody>
+</table>

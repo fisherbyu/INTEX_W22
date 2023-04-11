@@ -12,13 +12,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
-
-//var AppconnectionString = builder.Configuration.GetConnectionString("DefaultAppConnection");
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseSqlite(AppconnectionString));
-//builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-
 //Connect Database:
 var conectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
 builder.Services.AddDbContext<egyptbyuContext>(options =>

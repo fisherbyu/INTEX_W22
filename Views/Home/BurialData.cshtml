@@ -6,7 +6,8 @@
 
 <p>Here is our database of the different burials our team has discovered.  Use our built in filters to explor the data.</p>
 
-@model BurialmainsViewModel
+@model IEnumerable<dynamic>
+
 
 <table class="table table-bordered table-striped">
     <thead class="font-weight-bold">
@@ -24,19 +25,19 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var burial in Model.Burialmains)
+        @foreach (var item in Model)
         {
-            <tr key="@burial.Id">
-                <td>@burial.Id</td>
+            <tr >
+                <td>@item.Burial.Id</td>
                 @*<td>@burial</td>
-                <td>@burial</td>
-                <td>@burial</td>
-                <td>@burial</td>
-                <td>@burial</td>
-                <td>@burial</td>
-                <td>@burial</td>
-                <td>@burial</td>
-                <td>@burial</td>*@
+                    <td>@burial</td>
+                    <td>@burial</td>
+                    <td>@burial</td>
+                    <td>@burial</td>
+                    <td>@burial</td>
+                    <td>@burial</td>
+                    <td>@burial</td>
+                    <td>@burial</td>*@
             </tr>
         }
     </tbody>

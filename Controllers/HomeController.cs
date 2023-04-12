@@ -5,6 +5,7 @@ using System.Xml;
 using BYU_EGYPT_INTEX.Models.ViewModels;
 using static System.Reflection.Metadata.BlobBuilder;
 using BYU_EGYPT_INTEX.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace BYU_EGYPT_INTEX.Controllers;
 
@@ -16,8 +17,11 @@ public class HomeController : Controller
 
     public HomeController(ILogger<HomeController> logger, egyptbyuContext temp_context, ApplicationDbContext tempLink)
     {
+        //Log Errors
         _logger = logger;
+        //Conect to Egypt DB
         DbContext = temp_context;
+        //Connect Auth Users
         AuthLinkContext = tempLink;
     }
 
@@ -28,36 +32,47 @@ public class HomeController : Controller
 
     public IActionResult BurialData(int pageNum = 1)
     {
-        //Set Pagination Params
-        int resultLength = 10;
-        int pageNumber = pageNum;
+        ////Set Pagination Params
+        //int resultLength = 10;
+        //int pageNumber = pageNum;
 
-        //Declare var Burial to make data manipulation simpler
-        var Burials = DbContext.Burialmains
-            .Skip((pageNum - 1) * resultLength)
-            .Take(resultLength);
-
-        var data = new BurialmainsViewModel
-        {
-            Burialmains = Burials,
-
-            PageInfo = new PageInfo
-            {
-                TotalNumBurials = (
-                    DbContext.Burialmains.Count()
-                ),
-                BurialsPerPage = resultLength,
-                CurrentPage = pageNum
-            }
-        };
+        ////Declare var Burial to make data manipulation simpler
+        //var Burials = DbContext.Burialmains
+        //    .Skip((pageNum - 1) * resultLength)
+        //    .Take(resultLength);
 
         //var data = new BurialmainsViewModel
         //{
-        //    Burialmains = Burials;
+        //    Burialmains = Burials,
 
-        //    PageInfo = new PageInfo;
-        //}
+        //    PageInfo = new PageInfo
+        //    {
+        //        TotalNumBurials = (
+        //            DbContext.Burialmains.Count()
+        //        ),
+        //        BurialsPerPage = resultLength,
+        //        CurrentPage = pageNum
+        //    }
+        //};
+
+        ////var data = new BurialmainsViewModel
+        ////{
+        ////    Burialmains = Burials;
+
+        ////    PageInfo = new PageInfo;
+        ////}
+        ///
+
+        var data = from b in DbContext.Burialmains
+                   join l in DbContext.BurialmainTextiles on b.Id equals l.MainBurialmainid
+                   join t in DbContext.Textiles on l.MainTextileid equals t.Id
+                   select new { Burial = b, Textile = t };
         return View(data);
+    }
+
+    public IActionResult DisplayBurial(long ID)
+    {
+        return View();
     }
 
     //public IActionResult xIndex(string bookCategory, int pageNum = 1)

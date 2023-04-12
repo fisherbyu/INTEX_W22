@@ -10,6 +10,7 @@
   <ItemGroup>
     <None Remove="Models\EgyptData\" />
     <None Remove="Models\ViewModels\" />
+    <None Remove="Models\AnalyticsModels\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.15" />
@@ -21,11 +22,13 @@
     <PackageReference Include="Npgsql" Version="6.0.9" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.16" />
+    <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.14.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Models\EgyptData\" />
     <Folder Include="Models\ViewModels\" />
+    <Folder Include="Models\AnalyticsModels\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />

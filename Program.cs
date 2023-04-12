@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BYU_EGYPT_INTEX.Data;
 using BYU_EGYPT_INTEX.Models;
+using Microsoft.ML.OnnxRuntime;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,11 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.Password.RequiredUniqueChars = 1;
 }).AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+//Setup Analysis API
+builder.Services.AddSingleton<InferenceSession>(
+    new InferenceSession("Models/AnalyticsModels/supertextmodel.onnx"));
+
 
 var app = builder.Build();
 

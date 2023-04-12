@@ -4,13 +4,18 @@
 
 <h1>Burial Site Database</h1>
 
-<p>Here is our database of the different burials our team has discovered.  Use our built in filters to explor the data.</p>
+<p>Here is our database of the different burials our team has discovered.  Use our built in filters to explore the data.</p>
+
+@*@model IEnumerable<dynamic>*@
 
 @model BurialmainsViewModel
+
 
 <table class="table table-bordered table-striped">
     <thead class="font-weight-bold">
         <tr>
+
+
             <td>Textile color</td>
             <td>Textile structure</td>
             <td>Sex</td>
@@ -24,19 +29,19 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var burial in Model.Burialmains)
+        @foreach (var item in Model.burials)
         {
-            <tr key="@burial.Id">
-                <td>@burial.Id</td>
-                @*<td>@burial</td>
-                <td>@burial</td>
-                <td>@burial</td>
-                <td>@burial</td>
-                <td>@burial</td>
-                <td>@burial</td>
-                <td>@burial</td>
-                <td>@burial</td>
-                <td>@burial</td>*@
+            <tr key="@item.burialmain.Id">
+                <td>@item.color.Value</td>
+                <td>Textile_Structure</td>
+                <td>@item.burialmain.Sex</td>
+                <td>@item.burialmain.Depth</td>
+                <td>@item.burialmain.Length</td>
+                <td>@item.burialmain.Ageatdeath</td>
+                <td>@item.burialmain.Headdirection</td>
+                <td>@item.burialmain.Burialid</td>
+                <td>@item.textileFunction.Value</td>
+                <td>@item.burialmain.Haircolor</td>
             </tr>
         }
     </tbody>

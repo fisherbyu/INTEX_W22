@@ -5,20 +5,25 @@ using System.Xml;
 using BYU_EGYPT_INTEX.Models.ViewModels;
 using static System.Reflection.Metadata.BlobBuilder;
 using BYU_EGYPT_INTEX.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BYU_EGYPT_INTEX.Controllers;
 
 public class HomeController : Controller
 {
+    private readonly UserManager<IdentityUser> _userManager;
     private readonly ILogger<HomeController> _logger;
     private egyptbyuContext DbContext { get; set; }
     private ApplicationDbContext AuthLinkContext { get; set; }
 
-    public HomeController(ILogger<HomeController> logger, egyptbyuContext temp_context, ApplicationDbContext tempLink)
+    public HomeController(ILogger<HomeController> logger, egyptbyuContext temp_context, ApplicationDbContext tempLink, UserManager<IdentityUser> userManager)
     {
         _logger = logger;
         DbContext = temp_context;
         AuthLinkContext = tempLink;
+        _userManager = userManager;
     }
 
     public IActionResult Index()
@@ -94,10 +99,16 @@ public class HomeController : Controller
     //        }
     //    };
 
-        public IActionResult Privacy()
+    public IActionResult Privacy()
     {
         return View();
     }
+    //[Authorize(Roles = "Admin")]
+    //public async Task<IActionResult> Users()
+    //{
+        //var users = await _userManager.Users.ToListAsync();
+        //return View(users);
+    //}
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

@@ -10,6 +10,10 @@
   <ItemGroup>
     <None Remove="Models\EgyptData\" />
     <None Remove="Models\ViewModels\" />
+    <None Remove="Core\" />
+    <None Remove="Core\Repositories\" />
+    <None Remove="Repositories\" />
+    <None Remove="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.15" />
@@ -26,6 +30,10 @@
   <ItemGroup>
     <Folder Include="Models\EgyptData\" />
     <Folder Include="Models\ViewModels\" />
+    <Folder Include="Core\" />
+    <Folder Include="Core\Repositories\" />
+    <Folder Include="Repositories\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />

@@ -1,0 +1,33 @@
+﻿@page
+@{
+}
+@model List<IdentityUser>
+
+<h2>All Users</h2>
+
+@if (Model != null && Model.Any())
+ {
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+ }
+ else
+ {
+    <h2>No users found</h2>
+ }
+
+

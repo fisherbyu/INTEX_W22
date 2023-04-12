@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BYU_EGYPT_INTEX.Data;
 using BYU_EGYPT_INTEX.Models;
+using BYU_EGYPT_INTEX.Core.Repositories;
+using BYU_EGYPT_INTEX.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,9 +31,12 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 8;
     options.Password.RequiredUniqueChars = 1;
-}).AddEntityFrameworkStores<ApplicationDbContext>();
+})
+    .AddRoles<IdentityRole>() //Get roles
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+AddScoped();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -67,3 +72,8 @@ app.MapRazorPages();
 
 app.Run();
 
+void AddScoped()
+{
+    builder.Services.AddScoped<IUserRepo, UserRepo>();
+    builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+}

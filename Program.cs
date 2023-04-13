@@ -1,17 +1,16 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using BYU_EGYPT_INTEX.Data;
 using BYU_EGYPT_INTEX.Models;
 using Microsoft.ML.OnnxRuntime;
+using BYU_EGYPT_INTEX.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add user database to the container.
 var authConnectString = builder.Configuration["ConnectionStrings:AuthLink"];
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(authConnectString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
 
 
 //Connect Database:
@@ -20,9 +19,9 @@ builder.Services.AddDbContext<egyptbyuContext>(options =>
     options.UseNpgsql(conectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = true;
+    options.SignIn.RequireConfirmedAccount = false;
     // Require better passwords
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
@@ -30,7 +29,9 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 8;
     options.Password.RequiredUniqueChars = 1;
-}).AddEntityFrameworkStores<ApplicationDbContext>();
+})
+    .AddRoles<IdentityRole>() //Add role service
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -67,4 +68,3 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 app.Run();
-

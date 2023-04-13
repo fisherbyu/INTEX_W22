@@ -97,7 +97,14 @@ public class HomeController : Controller
         BurialComposite data = new BurialComposite(burialmain, textiles, colors);
         return View(data);
     }
-
+    public IActionResult Supervised()
+    {
+        return View();
+    }
+    public IActionResult Supervised2()
+    {
+        return View();
+    }
 
     public IActionResult Privacy()
     {

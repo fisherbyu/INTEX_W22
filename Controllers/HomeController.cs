@@ -30,6 +30,7 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         return View();
+        //Test Git again
     }
     
     public IActionResult BurialData(string filter, int pageNum = 1)

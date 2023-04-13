@@ -13,25 +13,35 @@
 <table class="table table-bordered table-striped">
     <thead class="font-weight-bold">
         <tr>
-
-
-            <td>Textile color</td>
-            <td>Textile structure</td>
-            <td>Sex</td>
-            <td>Burial Depth</td>
-            <td>Estimate Stature</td>
-            <td>Age at Death</td>
-            <td>Head Direction</td>
             <td>Burial ID (SquareNorthSouth, NorthSouth, SquareEastWest, EastWest, Area, Burial Number)</td>
-            <td>Textile Function</td>
+            <td>Burial Depth</td>
+            <td>Age at Death</td>
+            <td>Sex</td>
             <td>Hair Color</td>
+            <td>Estimated Stature</td>
+            <td>Head Direction</td>
+            <td>Textile color</td>
+            <td>Textile Structure</td>
+            <td>Textile Function</td>
         </tr>
     </thead>
     <tbody>
         @foreach (BurialComposite item in Model.ListBurials)
          {
                 <tr key="@item.burial.Id">
-                    <td>@item.burial.Hair</td>
+                    <td>@(item.burial.Squarenorthsouth + item.burial.Northsouth + item.burial.Squareeastwest + item.burial.Eastwest + item.burial.Area + item.burial.Burialnumber)</td>
+                    <td>@item.burial.Depth</td>
+                    <td>@item.burial.Ageatdeath</td>
+                    <td>@item.burial.Sex</td>
+                    <td>@item.burial.Haircolor</td>
+                    <td>Estimated Struct</td>
+                    <td>@item.burial.Headdirection</td>
+                    
+                    <td>Textile color</td>
+                    <td>Textile Structure</td>
+                    <td>Textile Function</td>
+
+
                 </tr>
          }
     </tbody>

@@ -37,124 +37,18 @@ public class HomeController : Controller
     
     public IActionResult BurialData(int pageNum = 1)
     {
+        //Set Pagination Params
+        int resultLength = 10;
+        int pageNumber = pageNum;
 
-        ////Set Pagination Params
-        //int resultLength = 10;
-        //int pageNumber = pageNum;
 
-        ////Declare var Burial to make data manipulation simpler
-        //var Burials = DbContext.Burialmains
-        //    .Skip((pageNum - 1) * resultLength)
-        //    .Take(resultLength);
-
-        //var data = new BurialmainsViewModel
-        //{
-        //    Burialmains = Burials,
-
-        //    PageInfo = new PageInfo
-        //    {
-        //        TotalNumBurials = (
-        //            DbContext.Burialmains.Count()
-        //        ),
-        //        BurialsPerPage = resultLength,
-        //        CurrentPage = pageNum
-        //    }
-        //};
-
-        ////var data = new BurialmainsViewModel
-        ////{
-        ////    Burialmains = Burials;
-
-        ////    PageInfo = new PageInfo;
-        ////}
-        ///
-
-        //var burialRecords = from b in DbContext.Burialmains
-        //           join l in DbContext.BurialmainTextiles on b.Id equals l.MainBurialmainid
-        //           join t in DbContext.Textiles on l.MainTextileid equals t.Id
-        //           join ctx in DbContext.ColorTextiles on t.Id equals ctx.MainTextileid
-        //           join c in DbContext.Colors on ctx.MainColorid equals c.Id
-        //           select new BurialCombined { burialmain = b, textile = t, color = c };
-
-        //Query DB
-        //var records = from b in DbContext.Burialmains
-        //              //Link burialmain-textile table
-        //              join bt_join in DbContext.BurialmainTextiles on b.Id equals bt_join.MainBurialmainid into bt_temp
-        //              from bt in bt_temp.DefaultIfEmpty()
-        //              //Link textile table
-        //              join t_join in DbContext.Textiles on bt.MainTextileid equals t_join.Id into t_temp
-        //              from t in t_temp.DefaultIfEmpty()
-        //              //Link color-textile Table
-        //              join ct_join in DbContext.ColorTextiles on t.Id equals ct_join.MainTextileid into ct_temp
-        //              from ct in ct_temp.DefaultIfEmpty()
-        //              //Link color table
-        //              join c_join in DbContext.Colors on ct.MainColorid equals c_join.Id into c_temp
-        //              from c in c_temp.DefaultIfEmpty()
-        //              //link burialmain-bodyanalysischart table
-        //              join bacb_join in DbContext.BurialmainBodyanalysischarts on b.Id equals bacb_join.MainBurialmainid into bacb_temp
-        //              from bacb in bacb_temp.DefaultIfEmpty()
-        //              //Link Bodyanalysischart Table
-        //              join bac_join in DbContext.Bodyanalysischarts on bacb.MainBodyanalysischartid equals bac_join.Id into bac_temp
-        //              from bac in bac_temp.DefaultIfEmpty()
-        //              //Link textilefunction-textile table
-        //              join tft_join in DbContext.TextilefunctionTextiles on t.Id equals tft_join.MainTextileid into tft_temp
-        //              from tft in tft_temp.DefaultIfEmpty()
-        //              //Link textilefunction table
-        //              join tf_join in DbContext.Textilefunctions on tft.MainTextilefunctionid equals tf_join.Id into tf_temp
-        //              from tf in tf_temp.DefaultIfEmpty()
-
-        //              select new BurialCombined
-        //              {
-        //                  burialmain = b,
-        //                  textile = t ?? new Textile(),
-        //                  color = c ?? new Models.Color(),
-        //                  textileFunction = tf ?? new Textilefunction(),
-        //                  bodyAnalysisChart = bac ?? new Bodyanalysischart()
-        //              };
-        //var records = from b in DbContext.Burialmains
-        //              join bt_join in DbContext.BurialmainTextiles
-        //                  on b.Id equals bt_join.MainBurialmainid
-        //                  into bt_group
-        //              from bt in bt_group.DefaultIfEmpty()
-        //              join t_join in DbContext.Textiles
-        //                  on bt.MainTextileid equals t_join.Id
-        //                  into t_group
-        //              from t in t_group.DefaultIfEmpty()
-        //              join ct_join in DbContext.ColorTextiles
-        //                  on t.Id equals ct_join.MainTextileid
-        //                  into ct_group
-        //              from ct in ct_group.DefaultIfEmpty()
-        //              join c_join in DbContext.Colors
-        //                  on ct.MainColorid equals c_join.Id
-        //                  into c_group
-        //              from c in c_group.DefaultIfEmpty()
-        //              join bacb_join in DbContext.BurialmainBodyanalysischarts
-        //                  on b.Id equals bacb_join.MainBurialmainid
-        //                  into bacb_group
-        //              from bacb in bacb_group.DefaultIfEmpty()
-        //              join bac_join in DbContext.Bodyanalysischarts
-        //                  on bacb.MainBodyanalysischartid equals bac_join.Id
-        //                  into bac_group
-        //              from bac in bac_group.DefaultIfEmpty()
-        //              join tft_join in DbContext.TextilefunctionTextiles
-        //                  on t.Id equals tft_join.MainTextileid
-        //                  into tft_group
-        //              from tft in tft_group.DefaultIfEmpty()
-        //              join tf_join in DbContext.Textilefunctions
-        //                  on tft.MainTextilefunctionid equals tf_join.Id
-        //                  into tf_group
-        //              from tf in tf_group.DefaultIfEmpty()
-        //              select new BurialCombined
-        //              {
-        //                  burialmain = b,
-        //                  textiles = t_group,
-        //                  color = c ?? new Models.Color(),
-        //                  textileFunction = tf ?? new Textilefunction(),
-        //                  bodyAnalysisChart = bac ?? new Bodyanalysischart()
-        //              };
 
         List<Burialmain> allBurialIds = (from b in DbContext.Burialmains
                                   select b).ToList();
+        allBurialIds = allBurialIds
+            .Skip((pageNum - 1) * resultLength)
+            .Take(resultLength)
+            .ToList();
 
         List<BurialComposite> records = new List<BurialComposite>();
         foreach (Burialmain mainBurial in allBurialIds)
@@ -175,38 +69,32 @@ public class HomeController : Controller
                                          select c ?? new Models.Color()).Distinct().ToList();
 
 
-
-
-
-
-            //colors = (from ct in DbContext.ColorTextiles
-            //                         join c_join in DbContext.Colors on ct.MainColorid equals c_join.Id into c_temp
-            //                         from c in c_temp.DefaultIfEmpty()
-            //                         join t_join in DbContext.Textiles on ct.MainTextileid equals t_join.Textileid into t_temp
-            //                         from t in t_temp.DefaultIfEmpty()
-            //                         where t.)
-
             BurialComposite composite = new BurialComposite(mainBurial, textiles, colors);
             records.Add(composite);
 
         }
+        //Change REcords to IQueryable
+
+        //IQueryable<BurialComposite> BurialQuery = records.AsQueryable<BurialComposite>();
+        
+
+
+        List<BurialComposite> BurialList = records
+            .Skip((pageNum - 1) * resultLength)
+            .Take(resultLength)
+            .ToList();
 
 
 
-        //var result = from b in DbContext.Burialmains
-        //             join bt in DbContext.BurialmainTextiles on b.Id equals bt.MainBurialmainid into temp1
-        //    from t1 in temp1.DefaultIfEmpty()
-        //    join t in DbContext.Textiles on t1.MainTextileid equals t.Id into temp2
-        //    from t2 in temp2.DefaultIfEmpty()
-        //    join ct in DbContext.ColorTextiles on t2.Id equals ct.MainTextileid into temp3
-        //    from t3 in temp3.DefaultIfEmpty()
-        //    join c in DbContext.Colors on t3.MainColorid equals c.Id into temp4
-        //    from t4 in temp4.DefaultIfEmpty()
-        //    select new BurialCombined { burialmain = b, textile = t2, color = t4 };
+
+
+
+
+
 
         var data = new BurialmainsViewModel
         {
-            ListBurials = records
+            ListBurials = BurialList
         };
 
         return View(data);
@@ -222,10 +110,10 @@ public class HomeController : Controller
 
     public IActionResult DisplayBurial(long ID)
     {
-        
-        Burialmain burialmain = (from b in DbContext.Burialmains
-                                 where b.Id == ID
-                                 select b).SingleOrDefault() ?? new Burialmain();
+        Burialmain burialmain = DbContext.Burialmains.Single(x => x.Id == ID);
+        //Burialmain burialmain = (from b in DbContext.Burialmains
+        //                         where b.Id == ID
+        //                         select b).SingleOrDefault() ?? new Burialmain();
 
 
         List<Models.Color> colors = (from c in DbContext.Colors

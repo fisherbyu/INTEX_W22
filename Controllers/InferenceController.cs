@@ -4,7 +4,6 @@ using BYU_EGYPT_INTEX.Models;
 using System.Xml;
 using BYU_EGYPT_INTEX.Models.ViewModels;
 using static System.Reflection.Metadata.BlobBuilder;
-using BYU_EGYPT_INTEX.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Drawing;

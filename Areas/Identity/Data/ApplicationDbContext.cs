@@ -27,7 +27,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
 //{
     //public void Configure(EntityTypeBuilder<ApplicationUser> builder)
     //{
-        //builder.Property(u => u.FirstName).HasMaxLength(255);
-        //builder.Property(u => u.LastName).HasMaxLength(255);
+     
     //}
 //}

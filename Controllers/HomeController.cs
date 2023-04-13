@@ -7,7 +7,7 @@ using static System.Reflection.Metadata.BlobBuilder;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Drawing;
-using ASP.NETCoreIdentityCustom.Areas.Identity.Data;
+using BYU_EGYPT_INTEX.Areas.Identity.Data;
 
 namespace BYU_EGYPT_INTEX.Controllers;
 

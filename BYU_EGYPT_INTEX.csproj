@@ -29,8 +29,12 @@
     <Folder Include="Models\EgyptData\" />
     <Folder Include="Models\ViewModels\" />
     <Folder Include="Models\AnalyticsModels\" />
+    <Folder Include="wwwroot\img\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\img\" />
   </ItemGroup>
 </Project>

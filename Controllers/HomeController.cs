@@ -171,6 +171,11 @@ public class HomeController : Controller
     //        }
     //    };
 
+    public IActionResult Unsupervised()
+    {
+        return View();
+    }
+
         public IActionResult Privacy()
     {
         return View();

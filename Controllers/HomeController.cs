@@ -25,87 +25,41 @@ public class HomeController : Controller
         DbContext = temp_context;
         //Connect Auth Users
         AuthLinkContext = tempLink;
-        
     }
 
     public IActionResult Index()
     {
         return View();
     }
-
-
     
-    public IActionResult BurialData(int pageNum = 1)
+    public IActionResult BurialData(string filter, int pageNum = 1)
     {
         //Set Pagination Params
-        int resultLength = 10;
+        int resultLength = 100;
         int pageNumber = pageNum;
 
+        //Pull Data from DbView
+        List<Masterfilter> burials = DbContext.Masterfilters
+                    .Skip((pageNum - 1) * resultLength)
+                    .Take(resultLength)
+                    .ToList();
 
-
-        List<Burialmain> allBurialIds = (from b in DbContext.Burialmains
-                                  select b).ToList();
-        allBurialIds = allBurialIds
-            .Skip((pageNum - 1) * resultLength)
-            .Take(resultLength)
-            .ToList();
-
-        List<BurialComposite> records = new List<BurialComposite>();
-        foreach (Burialmain mainBurial in allBurialIds)
+        //Pass Data to backend
+        BurialmainsViewModel data = new BurialmainsViewModel
         {
-            List<Textile> textiles = (from bt in DbContext.BurialmainTextiles
-                                      join t_join in DbContext.Textiles on bt.MainTextileid equals t_join.Id into t_temp
-                                      from t in t_temp.DefaultIfEmpty()
-                                      where bt.MainBurialmainid == mainBurial.Id
-                                      select t ?? new Textile()).ToList();
-            List<Models.Color> colors = (from c in DbContext.Colors
-                                         join ct in DbContext.ColorTextiles on c.Id equals ct.MainColorid
-                                         join t in DbContext.Textiles on ct.MainTextileid equals t.Id
-                                         join bt in DbContext.BurialmainTextiles on t.Id equals bt.MainTextileid into bt_temp
-                                         from bt in bt_temp.DefaultIfEmpty()
-                                         join b in DbContext.Burialmains on bt.MainBurialmainid equals b.Id into b_temp
-                                         from b in b_temp.DefaultIfEmpty()
-                                         where b.Id == mainBurial.Id
-                                         select c ?? new Models.Color()).Distinct().ToList();
+            //Books to view on this page
+            ListBurials = burials,
+            //Pass to ViewModel
+            PageInfo = new PageInfo
+            {
 
-
-            BurialComposite composite = new BurialComposite(mainBurial, textiles, colors);
-            records.Add(composite);
-
-        }
-        //Change REcords to IQueryable
-
-        //IQueryable<BurialComposite> BurialQuery = records.AsQueryable<BurialComposite>();
-        
-
-
-        List<BurialComposite> BurialList = records
-            .Skip((pageNum - 1) * resultLength)
-            .Take(resultLength)
-            .ToList();
-
-
-
-
-
-
-
-
-
-        var data = new BurialmainsViewModel
-        {
-            ListBurials = BurialList
+                TotalNumBurials = (DbContext.Masterfilters
+                        .Count()),
+                BurialsPerPage = resultLength,
+                CurrentPage = pageNum
+            }
         };
-
         return View(data);
-    }
-
-
-    public IActionResult xBurialData(int pageNum = 1)
-    {
-
-
-        return View();
     }
 
     public IActionResult DisplayBurial(long ID)
@@ -117,14 +71,14 @@ public class HomeController : Controller
 
 
         List<Models.Color> colors = (from c in DbContext.Colors
-                                           join ct in DbContext.ColorTextiles on c.Id equals ct.MainColorid
-                                           join t in DbContext.Textiles on ct.MainTextileid equals t.Id
-                                           join bt in DbContext.BurialmainTextiles on t.Id equals bt.MainTextileid into bt_temp
-                                           from bt in bt_temp.DefaultIfEmpty()
-                                           join b in DbContext.Burialmains on bt.MainBurialmainid equals b.Id into b_temp
-                                           from b in b_temp.DefaultIfEmpty()
-                                           where b.Id == ID
-                                           select c ?? new Models.Color()).Distinct().ToList();
+                                     join ct in DbContext.ColorTextiles on c.Id equals ct.MainColorid
+                                     join t in DbContext.Textiles on ct.MainTextileid equals t.Id
+                                     join bt in DbContext.BurialmainTextiles on t.Id equals bt.MainTextileid into bt_temp
+                                     from bt in bt_temp.DefaultIfEmpty()
+                                     join b in DbContext.Burialmains on bt.MainBurialmainid equals b.Id into b_temp
+                                     from b in b_temp.DefaultIfEmpty()
+                                     where b.Id == ID
+                                     select c ?? new Models.Color()).Distinct().ToList();
 
         List<Textile> textiles = (from bt in DbContext.BurialmainTextiles
                                   join t_join in DbContext.Textiles on bt.MainTextileid equals t_join.Id into t_temp
@@ -132,45 +86,11 @@ public class HomeController : Controller
                                   where bt.MainBurialmainid == ID
                                   select t ?? new Textile()).ToList();
         BurialComposite data = new BurialComposite(burialmain, textiles, colors);
-
         return View(data);
     }
 
-    //public IActionResult xIndex(string bookCategory, int pageNum = 1)
-    //{
-    //    //Set Pagination Params
-    //    int resultLength = 10;
-    //    int pageNumber = pageNum;
 
-
-    //    //Declare var Books to make data manipulation simpler
-    //    var Books = BookRepo.Books
-    //        .Where(x => x.Category == bookCategory || bookCategory == null)
-    //        .OrderBy(b => b.Title)
-    //        .Skip((pageNum - 1) * resultLength)
-    //        .Take(resultLength);
-
-    //    //Pass Data to backend
-    //    var data = new BooksViewModel
-    //    {
-    //        //Books to view on this page
-    //        Books = Books,
-
-    //        PageInfo = new PageInfo
-    //        {
-
-    //            TotalNumBooks = (
-    //                bookCategory == null
-    //                ? BookRepo.Books.Count()
-    //                : BookRepo.Books
-    //                .Where(x => x.Category == bookCategory)
-    //                .Count()),
-    //            BooksPerPage = resultLength,
-    //            CurrentPage = pageNum
-    //        }
-    //    };
-
-        public IActionResult Privacy()
+    public IActionResult Privacy()
     {
         return View();
     }

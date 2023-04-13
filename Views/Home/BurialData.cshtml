@@ -13,7 +13,7 @@
 <table class="table table-bordered table-striped">
     <thead class="font-weight-bold">
         <tr>
-            <td>Burial ID (SquareNorthSouth, NorthSouth, SquareEastWest, EastWest, Area, Burial Number)</td>
+            <td>Burial ID</td>
             <td>Burial Depth</td>
             <td>Age at Death</td>
             <td>Sex</td>
@@ -26,23 +26,27 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (BurialComposite item in Model.ListBurials)
+        @foreach (Masterfilter item in Model.ListBurials)
          {
-                <tr key="@item.burial.Id">
-                    <td>@(item.burial.Squarenorthsouth + item.burial.Northsouth + item.burial.Squareeastwest + item.burial.Eastwest + item.burial.Area + item.burial.Burialnumber)</td>
-                    <td>@item.burial.Depth</td>
-                    <td>@item.burial.Ageatdeath</td>
-                    <td>@item.burial.Sex</td>
-                    <td>@item.burial.Haircolor</td>
-                    <td>Estimated Struct</td>
-                    <td>@item.burial.Headdirection</td>
-                    
-                    <td>Textile color</td>
-                    <td>Textile Structure</td>
-                    <td>Textile Function</td>
-
-
+                <tr key="@item.Id">
+                    <td><a asp-controller="Home" asp-action="DisplayBurial" asp-route-ID="@item.Id">@item.Burialid</a></td>
+                    <td>@item.Depth</td>
+                    <td>@item.Ageatdeath</td>
+                    <td>@item.Sex</td>
+                    <td>@item.Haircolor</td>
+                    <td>@item.Estimatestature</td>
+                    <td>@item.Headdirection</td>
+                    <td>@item.Color</td>
+                    <td>@item.TextileStructure</td>
+                    <td>@item.Textilefunction</td>
                 </tr>
          }
     </tbody>
 </table>
+<div page-action="Index">
+    <div page-model="@Model.PageInfo" page-action="Index" page-classes-enabled="true"
+         page-class="btn" page-class-normal="btn-outline-dark"
+         page-class-selected="btn-primary" class="btn-group pull-right m-1">
+    </div>
+
+</div>

@@ -12,7 +12,9 @@
     <header>
        <nav class="custom-navbar">
             <div class="custom-navbar-container container-fluid">
-                <a class="custom-navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BYU_EGYPT_INTEX</a>
+                <a class="custom-navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/img/buffalo-2-svgrepo-com.svg" />
+                </a>
                 <button class="custom-navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".custom-navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -62,6 +64,7 @@
 
 
     </header>
+    <br />
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

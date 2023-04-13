@@ -44,9 +44,15 @@
             </tr>
         </thead>
         <tbody>
-            <td>COLOR</td>
-            <td>STRUCTURE</td>
-            <td>FUNCTION</td>
+        <td>COLOR</td>
+        <td>STRUCTURE</td>
+        <td>FUNCTION</td>
         </tbody>
     </table>
 }
+
+
+@*Edit Stuff:*@
+
+<a asp-controller="Burialmain" asp-action="Edit" asp-route-id="@Model.burial.Id">Edit</a>
+<a asp-controller="Burialmain" asp-action="Delete" asp-route-id="@Model.burial.Id">Delete</a>

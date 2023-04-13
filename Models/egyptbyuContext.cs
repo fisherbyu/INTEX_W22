@@ -52,6 +52,7 @@ namespace BYU_EGYPT_INTEX.Models
         public virtual DbSet<TextilefunctionTextile> TextilefunctionTextiles { get; set; } = null!;
         public virtual DbSet<Yarnmanipulation> Yarnmanipulations { get; set; } = null!;
         public virtual DbSet<YarnmanipulationTextile> YarnmanipulationTextiles { get; set; } = null!;
+        public virtual DbSet<Masterfilter> Masterfilters { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -1244,6 +1245,59 @@ namespace BYU_EGYPT_INTEX.Models
                 entity.Property(e => e.MainYarnmanipulationid).HasColumnName("main$yarnmanipulationid");
 
                 entity.Property(e => e.MainTextileid).HasColumnName("main$textileid");
+            });
+
+            modelBuilder.Entity<Masterfilter>(entity =>
+            {
+                entity.ToTable("masterfilter");
+
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id");
+
+                entity.Property(e => e.Burialid)
+                    .HasColumnType("text")
+                    .ValueGeneratedNever()
+                    .HasColumnName("burialid");
+
+
+                entity.Property(e => e.Depth)
+                    .HasMaxLength(200)
+                    .HasColumnName("depth");
+
+                entity.Property(e => e.Ageatdeath)
+                    .HasMaxLength(200)
+                    .HasColumnName("ageatdeath");
+
+                entity.Property(e => e.Sex)
+                    .HasMaxLength(200)
+                    .HasColumnName("sex");
+
+                entity.Property(e => e.Haircolor)
+                    .HasMaxLength(200)
+                    .HasColumnName("haircolor");
+
+                entity.Property(e => e.Headdirection)
+                    .HasMaxLength(200)
+                    .HasColumnName("headdirection");
+
+                entity.Property(e => e.Estimatestature).HasColumnName("estimatestature");
+
+
+                entity.Property(e => e.Color)
+                    .HasMaxLength(500)
+                    .HasColumnName("color");
+
+                entity.Property(e => e.TextileStructure)
+                    .HasMaxLength(500)
+                    .HasColumnName("textilestructure");
+
+                entity.Property(e => e.Textilefunction)
+                   .HasMaxLength(200)
+                   .HasColumnName("textilefunction");
+
+                entity.HasKey(e => e.Burialid);
             });
 
             modelBuilder.HasSequence("excelimporter$template_nr_mxseq");

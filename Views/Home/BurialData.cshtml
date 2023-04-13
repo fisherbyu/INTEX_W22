@@ -6,7 +6,6 @@
 
 <p>Here is our database of the different burials our team has discovered.  Use our built in filters to explore the data.</p>
 
-@*@model IEnumerable<dynamic>*@
 
 @model BurialmainsViewModel
 
@@ -14,35 +13,40 @@
 <table class="table table-bordered table-striped">
     <thead class="font-weight-bold">
         <tr>
-
-
-            <td>Textile color</td>
-            <td>Textile structure</td>
-            <td>Sex</td>
+            <td>Burial ID</td>
             <td>Burial Depth</td>
-            <td>Estimate Stature</td>
             <td>Age at Death</td>
-            <td>Head Direction</td>
-            <td>Burial ID (SquareNorthSouth, NorthSouth, SquareEastWest, EastWest, Area, Burial Number)</td>
-            <td>Textile Function</td>
+            <td>Sex</td>
             <td>Hair Color</td>
+            <td>Estimated Stature</td>
+            <td>Head Direction</td>
+            <td>Textile color</td>
+            <td>Textile Structure</td>
+            <td>Textile Function</td>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.burials)
-        {
-            <tr key="@item.burialmain.Id">
-                <td>@item.color.Value</td>
-                <td>Textile_Structure</td>
-                <td>@item.burialmain.Sex</td>
-                <td>@item.burialmain.Depth</td>
-                <td>@item.burialmain.Length</td>
-                <td>@item.burialmain.Ageatdeath</td>
-                <td>@item.burialmain.Headdirection</td>
-                <td>@item.burialmain.Burialid</td>
-                <td>@item.textileFunction.Value</td>
-                <td>@item.burialmain.Haircolor</td>
-            </tr>
-        }
+        @foreach (Masterfilter item in Model.ListBurials)
+         {
+                <tr key="@item.Id">
+                    <td><a asp-controller="Home" asp-action="DisplayBurial" asp-route-ID="@item.Id">@item.Burialid</a></td>
+                    <td>@item.Depth</td>
+                    <td>@item.Ageatdeath</td>
+                    <td>@item.Sex</td>
+                    <td>@item.Haircolor</td>
+                    <td>@item.Estimatestature</td>
+                    <td>@item.Headdirection</td>
+                    <td>@item.Color</td>
+                    <td>@item.TextileStructure</td>
+                    <td>@item.Textilefunction</td>
+                </tr>
+         }
     </tbody>
 </table>
+<div page-action="Index">
+    <div page-model="@Model.PageInfo" page-action="Index" page-classes-enabled="true"
+         page-class="btn" page-class-normal="btn-outline-dark"
+         page-class-selected="btn-primary" class="btn-group pull-right m-1">
+    </div>
+
+</div>

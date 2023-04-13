@@ -8,9 +8,6 @@ using BYU_EGYPT_INTEX.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Drawing;
-using BYU_EGYPT_INTEX.Models.AnalyticsModels;
-using Microsoft.ML.OnnxRuntime.Tensors;
-using Microsoft.ML.OnnxRuntime;
 
 namespace BYU_EGYPT_INTEX.Controllers;
 
@@ -54,7 +51,7 @@ public class HomeController : Controller
                 .Take(resultLength)
                 .ToList();
         }
-
+        //Git?
         //Pass Data to backend
         BurialmainsViewModel data = new BurialmainsViewModel
         {
@@ -100,6 +97,7 @@ public class HomeController : Controller
         return View(data);
     }
 
+
     public IActionResult Privacy()
     {
         return View();
@@ -110,16 +108,5 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
-    public IActionResult Supervised()
-    {
-        return View();
-    }
-
-    public IActionResult Supervised2()
-    {
-        return View();
-    }
-
-
 }
 

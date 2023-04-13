@@ -13,10 +13,14 @@ namespace BYU_EGYPT_INTEX.Models.AnalyticsModels
         public float adultsubadult_A { get; set; }
         public float adultsubadult_C { get; set; }
         public float preservation_ { get; set; }
-        public float preservation_bones { get; set; }
+        public float preservation_B { get; set; }
+        public float preservation_S { get; set; }
+        public float preservation_W { get; set; }
+        public float preservation_badly_preserved { get; set; }
         public float preservation_deteriorated { get; set; }
-        public float preservation_skeletalized { get; set; }
-        public float preservation_well_preserved { get; set; }
+        public float preservation_poor { get; set; }
+        public float preservation_very_disturbed { get; set; }
+        public float samplescollected_true { get; set; }
         public float ageatdeath_ { get; set; }
         public float ageatdeath_A { get; set; }
         public float ageatdeath_C { get; set; }
@@ -49,9 +53,9 @@ namespace BYU_EGYPT_INTEX.Models.AnalyticsModels
         {
             float[] data = new float[]
             {
-                depth, headdirection_, headdirection_E, headdirection_W, adultsubadult_, adultsubadult_A, adultsubadult_C, preservation_, preservation_bones, preservation_deteriorated, preservation_skeletalized, preservation_well_preserved, ageatdeath_, ageatdeath_A, ageatdeath_C, ageatdeath_I, ageatdeath_N, textilefunctionvalue_Blanket_shroud, textilefunctionvalue_Fragment, textilefunctionvalue_Other, textilefunctionvalue_Ribbon, textilefunctionvalue_Tunic, angle_, angle_H, angle_M, angle_M_H, angle_M_H_C, angle_S, angle_S_M, manipulation_Other, manipulation_Warp, manipulation_Weft, material_Linen, material_Other, material_Wool, direction_, direction_S, direction_Z, direction_Z_S
+                depth, headdirection_, headdirection_E, headdirection_W, adultsubadult_, adultsubadult_A, adultsubadult_C, preservation_, preservation_B, preservation_S, preservation_W, preservation_badly_preserved, preservation_deteriorated, preservation_poor, preservation_very_disturbed, samplescollected_true, ageatdeath_, ageatdeath_A, ageatdeath_C, ageatdeath_I, ageatdeath_N, textilefunctionvalue_Blanket_shroud, textilefunctionvalue_Fragment, textilefunctionvalue_Other, textilefunctionvalue_Ribbon, textilefunctionvalue_Tunic, angle_, angle_H, angle_M, angle_M_H, angle_M_H_C, angle_S, angle_S_M, manipulation_Other, manipulation_Warp, manipulation_Weft, material_Linen, material_Other, material_Wool, direction_, direction_S, direction_Z, direction_Z_S
             };
-            int[] dimensions = new int[] { 1, 39 };
+            int[] dimensions = new int[] { 1, 43 };
             return new DenseTensor<float>(data, dimensions);
         }
     }

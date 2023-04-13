@@ -76,68 +76,82 @@
         </div>
     </div>
     
+    <div class="row">
+        <div class="col">
+            <label for="preservation">Preservation:</label>
+            <select id="preservation" name="preservation">
+            <option value="-">-</option>
+            <option value="bones">bones</option>
+            <option value="deteriorated">deteriorated</option>
+            <option value="skeletalized">skeletalized</option>
+            <option value="well_preserved">well preserved</option>
+            </select>
+        </div>
+        <div class="col">
+              <label for="age-at-death">Age at Death:</label>
+              <select id="age-at-death" name="age-at-death">
+                <option value="-">-</option>
+                <option value="A">A</option>
+                <option value="C">C</option>
+                <option value="I">I</option>
+                <option value="N">N</option>
+              </select>
+        </div>
+    </div>
 
-  <label for="preservation">Preservation:</label>
-  <select id="preservation" name="preservation">
-    <option value="-">-</option>
-    <option value="bones">bones</option>
-    <option value="deteriorated">deteriorated</option>
-    <option value="skeletalized">skeletalized</option>
-    <option value="well_preserved">well preserved</option>
-  </select>
-
-  <label for="age-at-death">Age at Death:</label>
-  <select id="age-at-death" name="age-at-death">
-    <option value="-">-</option>
-    <option value="A">A</option>
-    <option value="C">C</option>
-    <option value="I">I</option>
-    <option value="N">N</option>
-  </select>
-
-  <label for="textile-function">Textile Function:</label>
-  <select id="textile-function" name="textile-function">
-    <option value="Blanket/shroud">Blanket/shroud</option>
-    <option value="Fragment">Fragment</option>
-    <option value="Ribbon">Ribbon</option>
-    <option value="Tunic">Tunic</option>
-    <option value="Other">Other</option>
-  </select>
-
-  <label for="angle">Angle:</label>
-  <select id="angle" name="angle">
-    <option value="-">-</option>
-    <option value="H">H</option>
-    <option value="M">M</option>
-    <option value="M_H">M_H</option>
-    <option value="M_H_C">M_H_C</option>
-    <option value="S">S</option>
-    <option value="S_M">S_M</option>
-  </select>
-
-  <label for="manipulation">Manipulation:</label>
-  <select id="manipulation" name="manipulation">
-    <option value="Other">Other</option>
-    <option value="Warp">Warp</option>
-    <option value="Weft">Weft</option>
-  </select>
-
-    <label for="material">Material:</label>
-    <select name="material" id="material">
-        <option value="-">-</option>
-        <option value="Linen">Linen</option>
-        <option value="Wool">Wool</option>
-        <option value="Other">Other</option>
-    </select>
-
-    <label for="direction">Direction:</label>
-    <select name="direction" id="direction">
-        <option value="-">-</option>
-        <option value="S">S</option>
-        <option value="Z">Z</option>
-        <option value="Z_S">Z_S</option>
-    </select>
-    <button id="custom-button">Submit</button>
+    <div class="row">
+        <div class="col">
+            <label for="textile-function">Textile:</label>
+            <select id="textile-function" name="textile-function">
+                <option value="Blanket/shroud">Blanket/shroud</option>
+                <option value="Fragment">Fragment</option>
+                <option value="Ribbon">Ribbon</option>
+                <option value="Tunic">Tunic</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div class="col">
+          <label for="angle">Angle:</label>
+              <select id="angle" name="angle">
+                <option value="-">-</option>
+                <option value="H">H</option>
+                <option value="M">M</option>
+                <option value="M_H">M_H</option>
+                <option value="M_H_C">M_H_C</option>
+                <option value="S">S</option>
+                <option value="S_M">S_M</option>
+              </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="manipulation">Manipulation:</label>
+            <select id="manipulation" name="manipulation">
+                <option value="Other">Other</option>
+                <option value="Warp">Warp</option>
+                <option value="Weft">Weft</option>
+            </select>
+        </div>
+        <div class="col">
+            <label for="material">Material:</label>
+            <select name="material" id="material">
+                <option value="-">-</option>
+                <option value="Linen">Linen</option>
+                <option value="Wool">Wool</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div class="col">
+        <label for="direction">Direction:</label>
+        <select name="direction" id="direction">
+            <option value="-">-</option>
+            <option value="S">S</option>
+            <option value="Z">Z</option>
+            <option value="Z_S">Z_S</option>
+        </select>
+        <button id="custom-button">Submit</button>
+        </div>
+    </div>
  </form>
 
 <h4>Prediction:</h4>

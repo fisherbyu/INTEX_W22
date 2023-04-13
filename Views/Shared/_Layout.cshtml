@@ -28,20 +28,34 @@
                         <li class="custom-nav-item">
                             <a class="custom-nav-link" asp-area="" asp-controller="Home" asp-action="BurialData">Data</a>
                         </li>
-                        <li class="custom-nav-item">
-                            <a class="custom-nav-link" asp-area="" asp-controller="Home" asp-action="Supervised">Supervised Model 1</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Models
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li class="custom-nav-item">
+                                    <a class="custom-nav-link" asp-area="" asp-controller="Home" asp-action="Supervised">Supervised Model 1</a>
+                                </li>
+                                <li class="custom-nav-item">
+                                    <a class="custom-nav-link" asp-area="" asp-controller="Home" asp-action="Supervised2">Supervised Model 2</a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="custom-nav-item">
-                            <a class="custom-nav-link" asp-area="" asp-controller="Home" asp-action="Supervised2">Supervised Model 2</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Admin
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li class="custom-nav-item">
+                                    <a class="custom-nav-link" asp-area="" asp-controller="User" asp-action="Index">Manage Users</a>
+                                </li>
+                                <li class="custom-nav-item">
+                                    <a class="custom-nav-link" asp-area="" asp-controller="User" asp-action="ManageRecords">Manage Records</a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="custom-nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Manage Users</a>
-                        </li>
-                        <li class="custom-nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="ManageRecords">Manage Records</a>
-                        </li>
+                        <partial name="_LoginPartial" />
                     </ul>
-                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>

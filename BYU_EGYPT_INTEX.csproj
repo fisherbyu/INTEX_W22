@@ -11,10 +11,7 @@
     <None Remove="Models\EgyptData\" />
     <None Remove="Models\ViewModels\" />
     <None Remove="Models\AnalyticsModels\" />
-    <None Remove="Area\Identity\" />
-    <None Remove="Area\Identity\Data\" />
-    <None Remove="Area\Identity\Pages\" />
-    <None Remove="Area\Identity\Pages\Account\" />
+    
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.15" />
@@ -32,11 +29,8 @@
   <ItemGroup>
     <Folder Include="Models\EgyptData\" />
     <Folder Include="Models\ViewModels\" />
-    <Folder Include="Models\AnalyticsModels\" />
-    <Folder Include="Areas\Identity\" />
-    <Folder Include="Areas\Identity\Data\" />
-    <Folder Include="Areas\Identity\Pages\" />
-    <Folder Include="Areas\Identity\Pages\Account\" />
+    <Folder Include="Infrastructure\" />
+
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />

@@ -72,16 +72,6 @@ namespace BYU_EGYPT_INTEX.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
-            [Required]
-            [StringLength(255, ErrorMessage = "The first name field should have a maximum of 255 characters")]
-            [Display(Name = "Firstname")]
-            public string FirstName { get; set; }
-
-            [Required]
-            [StringLength(255, ErrorMessage = "The last name field should have a maximum of 255 characters")]
-            [Display(Name = "Lastname")]
-            public string LastName { get; set; }
-
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -95,8 +85,9 @@ namespace BYU_EGYPT_INTEX.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            //Smarter Password
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 8)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }

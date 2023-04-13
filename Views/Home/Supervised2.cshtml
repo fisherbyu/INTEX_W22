@@ -2,10 +2,55 @@
     ViewData["Title"] = "Supervised Model 2";
 }
 
+<style>
+    form {
+        background-color: #f2f2f2;
+        border-radius: 10px;
+        padding: 20px;
+        width: 50%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
+    label {
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    input[type="number"],
+    select {
+        margin: 10px 0;
+        width: 100%;
+        max-width: 400px;
+        padding: 5px;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+        font-size: 16px;
+    }
+
+    button {
+        margin: 20px 0;
+        padding: 10px;
+        border: none;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 </style>
 
-<h1>Supervised Model 2</h1>
+<br />
+<h1 style="text-align:center">Supervised Model 2</h1>
 
 <form>
     <div class="row">
@@ -46,14 +91,15 @@
             </select>
         </div>
     </div>
-
+    <div class="row">
     <label for="samples-collected">Samples Collected:</label>
     <select id="samples-collected" name="samples-collected">
         <option value="-">-</option>
         <option value="true">True</option>
         <option value="false">False</option>
     </select>
-
+    </div>
+    <div class="row">
     <label for="age-at-death">Age at Death:</label>
     <select id="age-at-death" name="age-at-death">
         <option value="-">-</option>
@@ -62,12 +108,13 @@
         <option value="I">I</option>
         <option value="N">N</option>
     </select>
-
+    </div>
     <button id="custom-button">Submit</button>
+    <h4>Prediction:</h4>
+    <h4 id="predictionResult"></h4>
 </form>
 
-<h4>Prediction:</h4>
-<h4 id="predictionResult"></h4>
+
 
 <script>
     const customButton = document.getElementById('custom-button');

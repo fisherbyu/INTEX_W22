@@ -2,7 +2,55 @@
     ViewData["Title"] = "Supervised Model 1";
 }
 
-<h1>Supervised Model 1</h1>
+<style>
+    form {
+        background-color: #f2f2f2;
+        border-radius: 10px;
+        padding: 20px;
+        width: 50%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    label {
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    input[type="number"],
+    select {
+        margin: 10px 0;
+        width: 100%;
+        max-width: 400px;
+        padding: 5px;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+        font-size: 16px;
+    }
+
+    button {
+        margin: 20px 0;
+        padding: 10px;
+        border: none;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+</style>
+<br>
+<h1 style="text-align:center">Supervised Model 1</h1>
 
 <form>
     <div class="row">
@@ -101,13 +149,15 @@
                 <option value="Z">Z</option>
                 <option value="Z_S">Z_S</option>
             </select>
-            <button id="custom-button">Submit</button>
-        </div>
+            
+        </div> 
     </div>
+    <button id="custom-button">Submit</button>
+    <h4>Prediction:</h4>
+    <h4 id="predictionResult"></h4>
 </form>
 
-<h4>Prediction:</h4>
-<h4 id="predictionResult"></h4>
+
 
 <script>
     const customButton = document.getElementById('custom-button');

@@ -42,6 +42,7 @@ namespace BYU_EGYPT_INTEX.Controllers
             result.Dispose();
             return Ok(prediction);
         }
+    }
         [ApiController]
         [Route("/score2")]
         public class InferenceController2 : ControllerBase
@@ -67,5 +68,5 @@ namespace BYU_EGYPT_INTEX.Controllers
                 return Ok(prediction);
             }
         }
-    }
+    
 }

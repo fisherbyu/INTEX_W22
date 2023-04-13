@@ -15,7 +15,6 @@ using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
 using BYU_EGYPT_INTEX.Models.AnalyticsModels;
 
-
 namespace BYU_EGYPT_INTEX.Controllers
 {
     [ApiController]
@@ -24,9 +23,9 @@ namespace BYU_EGYPT_INTEX.Controllers
     {
         private InferenceSession _session;
 
-        public InferenceController(InferenceSession session)
+        public InferenceController()
         {
-            _session = session;
+            _session = new InferenceSession("Models/AnalyticsModels/textilesupermodelfinal.onnx");
         }
 
         [HttpPost]
@@ -41,15 +40,32 @@ namespace BYU_EGYPT_INTEX.Controllers
             var prediction = new Prediction { PredictedValue = output_label.First() };
             result.Dispose();
             return Ok(prediction);
-
-            //var categories = new[] { "B", "H", "W" };
-            //int predictionIndex = Array.IndexOf(output_label.ToArray(), output_label.Max());
-            //var prediction = new Prediction { PredictedValue = categories[predictionIndex] };
-            //return Ok(prediction);
         }
-
-        
-
     }
 
+    [ApiController]
+    [Route("/score2")]
+    public class InferenceController2 : ControllerBase
+    {
+        private InferenceSession _session;
+
+        public InferenceController2()
+        {
+            _session = new InferenceSession("Models/AnalyticsModels/bmsupermodel2final.onnx");
+        }
+
+        [HttpPost]
+        public ActionResult Score(Models.AnalyticsModels.Data2 data)
+        {
+            var result = _session.Run(new List<NamedOnnxValue>
+                {
+                    NamedOnnxValue.CreateFromTensor("input", data.AsTensor())
+                });
+
+            Tensor<string> output_label = result.First().AsTensor<string>();
+            var prediction = new Prediction { PredictedValue = output_label.First() };
+            result.Dispose();
+            return Ok(prediction);
+        }
+    }
 }

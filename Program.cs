@@ -30,7 +30,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.Password.RequiredLength = 8;
     options.Password.RequiredUniqueChars = 1;
 })
-    .AddRoles<IdentityRole>()
+    .AddRoles<IdentityRole>() //Add role service
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 

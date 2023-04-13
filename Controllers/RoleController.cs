@@ -16,6 +16,11 @@ namespace BYU_EGYPT_INTEX.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "Administrator, User")]
+        public IActionResult ManageRecords()
+        {
+            return View();
+        }
     }
 }
 

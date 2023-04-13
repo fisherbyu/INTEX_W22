@@ -33,11 +33,6 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 }).AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-//Setup Analysis API
-builder.Services.AddSingleton<InferenceSession>(
-    new InferenceSession("Models/AnalyticsModels/supertextmodel.onnx"));
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

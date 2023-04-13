@@ -12,6 +12,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
     {
     }
 
+    //public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     //protected override void OnModelCreating(ModelBuilder builder)
     //{
         //base.OnModelCreating(builder);

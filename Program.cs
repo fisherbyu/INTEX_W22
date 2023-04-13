@@ -38,7 +38,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<InferenceSession>(
     new InferenceSession("Models/AnalyticsModels/supertextmodel.onnx"));
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -73,4 +72,3 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 app.Run();
-

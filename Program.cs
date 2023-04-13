@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using BYU_EGYPT_INTEX.Data;
 using BYU_EGYPT_INTEX.Models;
 using Microsoft.ML.OnnxRuntime;
+using static BYU_EGYPT_INTEX.Component.AgeAtDeathViewComponent;
+using NuGet.Protocol.Core.Types;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,9 @@ var conectionString = builder.Configuration["ConnectionStrings:DefaultConnection
 builder.Services.AddDbContext<egyptbyuContext>(options =>
     options.UseNpgsql(conectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+//connect repository
+builder.Services.AddScoped<IAgeAtDeathRepository, EfAgeAtDeathRepository>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
@@ -64,6 +69,11 @@ app.Use(async (context, next) =>
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "filter",
+    pattern: "{filter}/Page{pageNum}",
+    defaults: new { Controller = "Home", action = "BurialData" });
 app.MapRazorPages();
 
 app.Run();

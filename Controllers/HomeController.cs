@@ -8,6 +8,8 @@ using BYU_EGYPT_INTEX.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Drawing;
+using BYU_EGYPT_INTEX.Component;
+using System.Drawing.Printing;
 
 namespace BYU_EGYPT_INTEX.Controllers;
 
@@ -16,8 +18,9 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private egyptbyuContext DbContext { get; set; }
     private ApplicationDbContext AuthLinkContext { get; set; }
-    
-    public HomeController(ILogger<HomeController> logger, egyptbyuContext temp_context, ApplicationDbContext tempLink)
+    private IAgeAtDeathRepository repo;
+
+    public HomeController(ILogger<HomeController> logger, egyptbyuContext temp_context, ApplicationDbContext tempLink, IAgeAtDeathRepository temp)
     {
         //Log Errors
         _logger = logger;
@@ -25,6 +28,8 @@ public class HomeController : Controller
         DbContext = temp_context;
         //Connect Auth Users
         AuthLinkContext = tempLink;
+        //get filters
+        repo = temp;
     }
 
     public IActionResult Index()
@@ -33,9 +38,9 @@ public class HomeController : Controller
         //Test Git again
     }
     
-    public IActionResult BurialData(string filter, int pageNum = 1)
+    public IActionResult BurialData(string ageatdeath, int pageNum = 1)
     {
-        int resultLength = 100;
+        int resultLength = 10;
         int pageNumber = pageNum;
 
         //Pull Data from DbView
@@ -54,15 +59,22 @@ public class HomeController : Controller
         }
         //Git?
         //Pass Data to backend
-        BurialmainsViewModel data = new BurialmainsViewModel
+        var data = new BurialmainsViewModel
         {
-            //Books to view on this page
+            masterfilters = repo.masterfilters
+                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
+                .OrderBy(a => a.Ageatdeath)
+                .Skip((pageNum - 1) * resultLength)
+                .Take(resultLength),
+
             ListBurials = burials,
             //Pass to ViewModel
             PageInfo = new PageInfo
             {
-
-                TotalNumBurials = totalRecords,
+                TotalNumBurials =
+                (ageatdeath == null
+                ? repo.masterfilters.Count()
+                : repo.masterfilters.Where(data => data.Ageatdeath == ageatdeath).Count()),
                 BurialsPerPage = resultLength,
                 CurrentPage = pageNumber
             }

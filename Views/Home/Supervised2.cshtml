@@ -1,0 +1,256 @@
+﻿@{
+    ViewData["Title"] = "Supervised Model 2";
+}
+
+<h1>Supervised Model 2</h1>
+
+<form>
+    <label for="depth">Depth:</label>
+    <input type="number" id="depth" name="depth" step="0.01" required>
+
+    <label for="head-direction">Head Direction:</label>
+    <select id="head-direction" name="head-direction">
+        <option value="-">-</option>
+        <option value="E">E</option>
+        <option value="W">W</option>
+    </select>
+
+    <label for="adult-subadult">Adult/Subadult:</label>
+    <select id="adult-subadult" name="adult-subadult">
+        <option value="-">-</option>
+        <option value="A">A</option>
+        <option value="C">C</option>
+    </select>
+
+    <label for="preservation">Preservation:</label>
+    <select id="preservation" name="preservation">
+        <option value="-">-</option>
+        <option value="bones">bones</option>
+        <option value="">skeletalized</option>
+        <option value="deteriorated">deteriorated</option>
+        <option value="fairly_well_preserved">fairly well preserved</option>
+        <option value="well_preserved">well preserved</option>
+        <option value="very_well_preserved">very well preserved</option>
+    </select>
+
+    <label for="samples-collected">Samples Collected:</label>
+    <select id="samples-collected" name="samples-collected">
+        <option value="-">-</option>
+        <option value="true">True</option>
+        <option value="false">False</option>
+    </select>
+
+    <label for="age-at-death">Age at Death:</label>
+    <select id="age-at-death" name="age-at-death">
+        <option value="-">-</option>
+        <option value="A">A</option>
+        <option value="C">C</option>
+        <option value="I">I</option>
+        <option value="N">N</option>
+    </select>
+
+    <button id="custom-button">Submit</button>
+</form>
+
+<h4>Prediction:</h4>
+<h4 id="predictionResult"></h4>
+
+<script>
+    const customButton = document.getElementById('custom-button');
+    customButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        // Add your custom action here
+
+        const inputData = {
+            "depth": 2.5,
+            "headdirection_": 0,
+            "headdirection_E": 1,
+            "headdirection_W": 0,
+            "adultsubadult_": 0,
+            "adultsubadult_A": 1,
+            "adultsubadult_C": 0,
+            "preservation_": 0,
+            "preservation_bones": 1,
+            "preservation_deteriorated":0,
+            "preservation_fairly_well_preserved": 0,
+            "preservation_skeletalized": 0,
+            "preservation_very_well_preserved": 0,
+            "preservation_well_preserved": 0,
+            "samplescollected_true": 1,
+            "samplescollected_false": 0,
+            "samplescollected_": 0,
+            "ageatdeath_": 0,
+            "ageatdeath_A": 1,
+            "ageatdeath_C": 0,
+            "ageatdeath_I": 0,
+            "ageatdeath_N": 0,
+        }
+
+        function updateInputData() {
+            const depthInput = document.querySelector('#depth');
+            const headDirectionInput = document.querySelector('#headDirection');
+            const adultsubadultInput = document.querySelector('#adultsubadult');
+            const preservationInput = document.querySelector('#preservation');
+            const samplesCollectedInput = document.querySelector('#samplesCollected');
+            const ageAtDeathInput = document.querySelector('#ageAtDeath');
+
+            inputData.depth = parseFloat(depthInput.value);
+            if (headDirectionInput === 'E') {
+                inputData.headdirection_E = 1;
+                inputData.headdirection_W = 0;
+                inputData.headdirection_ = 0;
+            }
+            else if (headDirectionInput === "W") {
+                inputData.headdirection_E = 0;
+                inputData.headdirection_W = 1;
+                inputData.headdirection_ = 0;
+            }
+            else if (headDirectionInput === "-") {
+                inputData.headdirection_E = 0;
+                inputData.headdirection_W = 0;
+                inputData.headdirection_ = 1;
+            }
+            if (adultsubadultInput === 'A') {
+                inputData.adultsubadult_A = 1;
+                inputData.adultsubadult_C = 0;
+                inputData.adultsubadult_ = 0;
+            }
+            else if (adultsubadultInput === 'C') {
+                inputData.adultsubadult_A = 0;
+                inputData.adultsubadult_C = 1;
+                inputData.adultsubadult_ = 0;
+            }
+            else if (adultsubadultInput === '-') {
+                inputData.adultsubadult_A = 0;
+                inputData.adultsubadult_C = 0;
+                inputData.adultsubadult_ = 1;
+            }
+            if (preservationInput === "bones") {
+                inputData.preservation_bones = 1;
+                inputData.preservation_deteriorated = 0;
+                inputData.preservation_fairly_well_preserved = 0;
+                inputData.preservation_skeletalized = 0;
+                inputData.preservation_very_well_preserved = 0;
+                inputData.preservation_well_preserved = 0;
+                inputData.preservation_ = 0;
+            } else if (preservationInput === "deteriorated") {
+                inputData.preservation_bones = 0;
+                inputData.preservation_deteriorated = 1;
+                inputData.preservation_fairly_well_preserved = 0;
+                inputData.preservation_skeletalized = 0;
+                inputData.preservation_very_well_preserved = 0;
+                inputData.preservation_well_preserved = 0;
+                inputData.preservation_ = 0;
+            } else if (preservationInput === "fairly_well_preserved") {
+                inputData.preservation_bones = 0;
+                inputData.preservation_deteriorated = 0;
+                inputData.preservation_fairly_well_preserved = 1;
+                inputData.preservation_skeletalized = 0;
+                inputData.preservation_very_well_preserved = 0;
+                inputData.preservation_well_preserved = 0;
+                inputData.preservation_ = 0;
+            } else if (preservationInput === "skeletalized") {
+                inputData.preservation_bones = 0;
+                inputData.preservation_deteriorated = 0;
+                inputData.preservation_fairly_well_preserved = 0;
+                inputData.preservation_skeletalized = 1;
+                inputData.preservation_very_well_preserved = 0;
+                inputData.preservation_well_preserved = 0;
+                inputData.preservation_ = 0;
+            } else if (preservationInput === "very_well_preserved") {
+                inputData.preservation_bones = 0;
+                inputData.preservation_deteriorated = 0;
+                inputData.preservation_fairly_well_preserved = 0;
+                inputData.preservation_skeletalized = 0;
+                inputData.preservation_very_well_preserved = 1;
+                inputData.preservation_well_preserved = 0;
+                inputData.preservation_ = 0;
+            } else if (preservationInput === "well_preserved") {
+                inputData.preservation_bones = 0;
+                inputData.preservation_deteriorated = 0;
+                inputData.preservation_fairly_well_preserved = 0;
+                inputData.preservation_skeletalized = 0;
+                inputData.preservation_very_well_preserved = 0;
+                inputData.preservation_well_preserved = 1;
+                inputData.preservation_ = 0;
+            } else {
+                inputData.preservation_bones = 0;
+                inputData.preservation_deteriorated = 0;
+                inputData.preservation_fairly_well_preserved = 0;
+                inputData.preservation_skeletalized = 0;
+                inputData.preservation_very_well_preserved = 0;
+                inputData.preservation_well_preserved = 0;
+                inputData.preservation_ = 1;
+            }
+            if (samplesCollectedInput === "true") {
+                inputData.samplescollected_true = 1;
+                inputData.samplescollected_false = 0;
+                inputData.samplescollected_ = 0;
+            } else if (samplesCollectedInput === "false"){
+                inputData.samplescollected_true = 0;
+                inputData.samplescollected_false = 1;
+                inputData.samplescollected_ = 0;
+            } else {
+                inputData.samplescollected_true = 0;
+                inputData.samplescollected_false = 0;
+                inputData.samplescollected_ = 1;
+            }
+            if (ageAtDeathInput === "A") {
+                inputData.ageatdeath_A = 1;
+                inputData.ageatdeath_C = 0;
+                inputData.ageatdeath_I = 0;
+                inputData.ageatdeath_N = 0;
+                inputData.ageatdeath_ = 0;
+            } else if (ageAtDeathInput === "C") {
+                inputData.ageatdeath_A = 0;
+                inputData.ageatdeath_C = 1;
+                inputData.ageatdeath_I = 0;
+                inputData.ageatdeath_N = 0;
+                inputData.ageatdeath_ = 0;
+            } else if (ageAtDeathInput === "I") {
+                inputData.ageatdeath_A = 0;
+                inputData.ageatdeath_C = 0;
+                inputData.ageatdeath_I = 1;
+                inputData.ageatdeath_N = 0;
+                inputData.ageatdeath_ = 0;
+            } else if (ageAtDeathInput === "N") {
+                inputData.ageatdeath_A = 0;
+                inputData.ageatdeath_C = 0;
+                inputData.ageatdeath_I = 0;
+                inputData.ageatdeath_N = 1;
+                inputData.ageatdeath_ = 0;
+            } else {
+                inputData.ageatdeath_A = 0;
+                inputData.ageatdeath_C = 0;
+                inputData.ageatdeath_I = 0;
+                inputData.ageatdeath_N = 0;
+                inputData.ageatdeath_ = 1;
+            }
+            
+            fetch('/score2', {
+                method: 'POST',
+                body: JSON.stringify(inputData),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(prediction => {
+                    console.log(prediction);
+                    // Update the h4 tag with the prediction result
+                    document.querySelector('#predictionResult').textContent = String(prediction.predictedValue);
+                    console.log("it got here at least");
+                })
+                .catch(error => {
+                    alert("Something went wrong...");
+                });
+        }
+        updateInputData();
+
+        //event.preventDefault(); // prevent default form submission behavior
+
+
+        //const submitButton = document.querySelector('#submitButton');
+        //submitButton.addEventListener('click', updateInputData);
+    });
+</script>

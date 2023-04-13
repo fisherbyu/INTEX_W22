@@ -19,12 +19,12 @@ using BYU_EGYPT_INTEX.Models.AnalyticsModels;
 namespace BYU_EGYPT_INTEX.Controllers
 {
     [ApiController]
-    [Route("/score")]
-    public class InferenceController : ControllerBase
+    [Route("/score2")]
+    public class InferenceController2 : ControllerBase
     {
         private InferenceSession _session;
 
-        public InferenceController(InferenceSession session)
+        public InferenceController2(InferenceSession session)
         {
             _session = session;
         }
@@ -38,17 +38,12 @@ namespace BYU_EGYPT_INTEX.Controllers
                 });
 
             Tensor<string> output_label = result.First().AsTensor<string>();
-            var prediction = new Prediction { PredictedValue = output_label.First() };
-            result.Dispose();
+
+            var categories = new[] { "B", "H", "W" };
+            int predictionIndex = Array.IndexOf(output_label.ToArray(), output_label.Max());
+            var prediction = new Prediction2 { PredictedValue = categories[predictionIndex] };
             return Ok(prediction);
-
-            //var categories = new[] { "B", "H", "W" };
-            //int predictionIndex = Array.IndexOf(output_label.ToArray(), output_label.Max());
-            //var prediction = new Prediction { PredictedValue = categories[predictionIndex] };
-            //return Ok(prediction);
         }
-
-        
 
     }
 

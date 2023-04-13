@@ -71,6 +71,8 @@ public class HomeController : Controller
 
     }
 
+
+
     public IActionResult DisplayBurial(long ID)
     {
         Burialmain burialmain = DbContext.Burialmains.Single(x => x.Id == ID);

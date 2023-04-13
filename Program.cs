@@ -1,17 +1,16 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using BYU_EGYPT_INTEX.Data;
 using BYU_EGYPT_INTEX.Models;
 using Microsoft.ML.OnnxRuntime;
+using BYU_EGYPT_INTEX.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add user database to the container.
 var authConnectString = builder.Configuration["ConnectionStrings:AuthLink"];
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(authConnectString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
 
 
 //Connect Database:
@@ -30,7 +29,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 8;
     options.Password.RequiredUniqueChars = 1;
-}).AddEntityFrameworkStores<ApplicationDbContext>();
+});
 builder.Services.AddControllersWithViews();
 
 //Setup Analysis API

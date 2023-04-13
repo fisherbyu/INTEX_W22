@@ -123,19 +123,12 @@ namespace BYU_EGYPT_INTEX.Areas.Identity.Pages.Account
                 var result = await _signInManager.CheckPasswordSignInAsync(user, Input.Password, false);
                 if (result.Succeeded)
                 {
-                    var claims = new List<Claim>
+                    var claims = new Claim[]
                     { 
                         new Claim("amr", "pwd"),
                     };
 
                     var roles = await _signInManager.UserManager.GetRolesAsync(user);
-
-                    if (roles.Any())
-                    {
-                        //"Manager,User"
-                        var roleClaim = string.Join(",", roles);
-                        claims.Add(new Claim("Roles", roleClaim));
-                    }
 
                     await _signInManager.SignInWithClaimsAsync(user, Input.RememberMe, claims);
 

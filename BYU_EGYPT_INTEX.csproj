@@ -15,6 +15,7 @@
     <None Remove="Area\Identity\Data\" />
     <None Remove="Area\Identity\Pages\" />
     <None Remove="Area\Identity\Pages\Account\" />
+    <None Remove="Views\Role\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.15" />
@@ -37,6 +38,7 @@
     <Folder Include="Areas\Identity\Data\" />
     <Folder Include="Areas\Identity\Pages\" />
     <Folder Include="Areas\Identity\Pages\Account\" />
+    <Folder Include="Views\Role\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />

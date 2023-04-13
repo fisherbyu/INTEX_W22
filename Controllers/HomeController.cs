@@ -34,15 +34,23 @@ public class HomeController : Controller
     
     public IActionResult BurialData(string filter, int pageNum = 1)
     {
-        //Set Pagination Params
         int resultLength = 100;
         int pageNumber = pageNum;
 
         //Pull Data from DbView
-        List<Masterfilter> burials = DbContext.Masterfilters
-                    .Skip((pageNum - 1) * resultLength)
-                    .Take(resultLength)
-                    .ToList();
+        List<Masterfilter> burials = new List<Masterfilter>();
+
+        int totalRecords = DbContext.Masterfilters.Count();
+        int totalPages = (int)Math.Ceiling((double)totalRecords / resultLength);
+
+        if (pageNumber <= totalPages)
+        {
+            burials = DbContext.Masterfilters
+                .OrderBy(x => x.Burialid)
+                .Skip((pageNumber - 1) * resultLength)
+                .Take(resultLength)
+                .ToList();
+        }
 
         //Pass Data to backend
         BurialmainsViewModel data = new BurialmainsViewModel
@@ -53,13 +61,13 @@ public class HomeController : Controller
             PageInfo = new PageInfo
             {
 
-                TotalNumBurials = (DbContext.Masterfilters
-                        .Count()),
+                TotalNumBurials = totalRecords,
                 BurialsPerPage = resultLength,
-                CurrentPage = pageNum
+                CurrentPage = pageNumber
             }
         };
         return View(data);
+
     }
 
     public IActionResult DisplayBurial(long ID)

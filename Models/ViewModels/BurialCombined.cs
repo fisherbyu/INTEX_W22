@@ -7,7 +7,11 @@ namespace BYU_EGYPT_INTEX.Models.ViewModels
 		public Textile? textile { get; set; }
 		public Color? color { get; set; }
 		public Textilefunction? textileFunction { get; set; }
+		public IEnumerable<Textile>? textiles { get; set; }
         public Bodyanalysischart? bodyAnalysisChart { get; set; }
+
+
+
     }
 }
 

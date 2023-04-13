@@ -15,9 +15,18 @@ html {
   
 }
 
+a {
+    color: #61A6AB;
+    transition: color 0.5s ease-in-out;
+}
+
+    a:hover {
+        color: #65B18C;
+    }
+
 .custom-navbar {
     background-color: #C1B398;
-    color: #605951;
+    color: #61A6AB;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     height: 80px;
     width: 100%;

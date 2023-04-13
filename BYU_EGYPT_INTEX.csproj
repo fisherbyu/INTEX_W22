@@ -29,8 +29,9 @@
   <ItemGroup>
     <Folder Include="Models\EgyptData\" />
     <Folder Include="Models\ViewModels\" />
-    <Folder Include="Models\AnalyticsModels\" />
+    Folder Include="Models\AnalyticsModels\" />
     <Folder Include="Infrastructure\" />
+    <Folder Include="Views\Inference\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />

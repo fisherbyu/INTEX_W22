@@ -1,0 +1,478 @@
+﻿@{
+    ViewData["Title"] = "Supervised Model 1";
+}
+
+<style>
+
+    form {
+        background-color: #f2f2f2;
+        border-radius: 10px;
+        padding: 20px;
+        width: 50%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    label {
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    input[type="number"],
+    select {
+        margin: 10px 0;
+        width: 100%;
+        max-width: 400px;
+        padding: 5px;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+        font-size: 16px;
+    }
+
+    button {
+        margin: 20px 0;
+        padding: 10px;
+        border: none;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+
+<h1>Supervised Model 1</h1>
+
+<form>
+    <div class="row">
+        <div class="col">
+            <label for="depth">Depth:</label>
+            <input type="number" id="depth" name="depth" step="0.01" required>
+        </div>
+        <div class="col">
+            <label for="head-direction">Head Direction:</label>
+            <select id="head-direction" name="head-direction">
+                <option value="-">-</option>
+                <option value="E">E</option>
+                <option value="W">W</option>
+            </select>
+        </div>
+        <div class="col">
+            <label for="adult-subadult">Adult/Subadult:</label>
+            <select id="adult-subadult" name="adult-subadult">
+                <option value="-">-</option>
+                <option value="A">A</option>
+                <option value="C">C</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col">
+            <label for="preservation">Preservation:</label>
+            <select id="preservation" name="preservation">
+            <option value="-">-</option>
+            <option value="bones">bones</option>
+            <option value="deteriorated">deteriorated</option>
+            <option value="skeletalized">skeletalized</option>
+            <option value="well_preserved">well preserved</option>
+            </select>
+        </div>
+        <div class="col">
+              <label for="age-at-death">Age at Death:</label>
+              <select id="age-at-death" name="age-at-death">
+                <option value="-">-</option>
+                <option value="A">A</option>
+                <option value="C">C</option>
+                <option value="I">I</option>
+                <option value="N">N</option>
+              </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <label for="textile-function">Textile:</label>
+            <select id="textile-function" name="textile-function">
+                <option value="Blanket/shroud">Blanket/shroud</option>
+                <option value="Fragment">Fragment</option>
+                <option value="Ribbon">Ribbon</option>
+                <option value="Tunic">Tunic</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div class="col">
+          <label for="angle">Angle:</label>
+              <select id="angle" name="angle">
+                <option value="-">-</option>
+                <option value="H">H</option>
+                <option value="M">M</option>
+                <option value="M_H">M_H</option>
+                <option value="M_H_C">M_H_C</option>
+                <option value="S">S</option>
+                <option value="S_M">S_M</option>
+              </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="manipulation">Manipulation:</label>
+            <select id="manipulation" name="manipulation">
+                <option value="Other">Other</option>
+                <option value="Warp">Warp</option>
+                <option value="Weft">Weft</option>
+            </select>
+        </div>
+        <div class="col">
+            <label for="material">Material:</label>
+            <select name="material" id="material">
+                <option value="-">-</option>
+                <option value="Linen">Linen</option>
+                <option value="Wool">Wool</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div class="col">
+        <label for="direction">Direction:</label>
+        <select name="direction" id="direction">
+            <option value="-">-</option>
+            <option value="S">S</option>
+            <option value="Z">Z</option>
+            <option value="Z_S">Z_S</option>
+        </select>
+        <button id="custom-button">Submit</button>
+        </div>
+    </div>
+ </form>
+
+<h4>Prediction:</h4>
+<h4 id="predictionResult"></h4>
+
+<script>
+    const customButton = document.getElementById('custom-button');
+    customButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        // Add your custom action here
+    
+    const inputData = {
+        "depth": 2.5,
+        "headdirection_": 0,
+        "headdirection_E": 1,
+        "headdirection_W": 0,
+        "adultsubadult_": 0,
+        "adultsubadult_A": 1,
+        "adultsubadult_C": 0,
+        "preservation_": 0,
+        "preservation_B": 1,
+        "preservation_S": 0,
+        "preservation_W": 0,
+        "preservation_": 0,
+        "preservation_badly_preserved": 0,
+        "preservation_deteriorated": 0,
+        "preservation_poor": 0,
+        "preservation_very_disturbed": 0,
+        "ageatdeath_": 0,
+        "ageatdeath_A": 1,
+        "ageatdeath_C": 0,
+        "ageatdeath_I": 0,
+        "ageatdeath_N": 0,
+        "textilefunctionvalue_Blanket_shroud": 0,
+        "textilefunctionvalue_Fragment": 0,
+        "textilefunctionvalue_Other": 0,
+        "textilefunctionvalue_Ribbon": 0,
+        "textilefunctionvalue_Tunic": 0,
+        "angle_": 0,
+        "angle_H": 0,
+        "angle_M": 1,
+        "angle_M_H": 0,
+        "angle_M_H_C": 0,
+        "angle_S": 0,
+        "angle_S_M": 0,
+        "manipulation_Other": 0,
+        "manipulation_Warp": 1,
+        "manipulation_Weft": 0,
+        "material_Linen": 0,
+        "material_Other": 0,
+        "material_Wool": 1,
+        "direction_": 0,
+        "direction_S": 0,
+        "direction_Z": 1,
+        "direction_Z_S": 0
+    }
+
+    function updateInputData() {
+        const depthInput = document.querySelector('#depth');
+        const headDirectionInput = document.querySelector('#headDirection');
+        const adultsubadultInput = document.querySelector('#adultsubadult');
+        const preservationInput = document.querySelector('#preservation');
+        const samplesCollectedInput = document.querySelector('#samplesCollected');
+        const ageAtDeathInput = document.querySelector('#ageAtDeath');
+        const textileFunctionInput = document.querySelector('#textileFunction');
+        const angleInput = document.querySelector('#angle');
+        const manipulationInput = document.querySelector('#manipulation');
+        const materialInput = document.querySelector('#material');
+        const directionInput = document.querySelector('#direction');
+
+        inputData.depth = parseFloat(depthInput.value);
+        if (headDirectionInput === 'E') {
+            inputData.headdirection_E = 1;
+            inputData.headdirection_W = 0;
+            inputData.headdirection_ = 0;
+        }
+        else if (headDirectionInput === "W") {
+            inputData.headdirection_E = 0;
+            inputData.headdirection_W = 1;
+            inputData.headdirection_ = 0;
+        }
+        else if (headDirectionInput === "-") {
+            inputData.headdirection_E = 0;
+            inputData.headdirection_W = 0;
+            inputData.headdirection_ = 1;
+        }
+        if (adultsubadultInput === 'A') {
+            inputData.adultsubadult_A = 1;
+            inputData.adultsubadult_C = 0;
+            inputData.adultsubadult_ = 0;
+        }
+        else if (adultsubadultInput === 'C') {
+            inputData.adultsubadult_A = 0;
+            inputData.adultsubadult_C = 1;
+            inputData.adultsubadult_ = 0;
+        }
+        else if (adultsubadultInput === '-') {
+            inputData.adultsubadult_A = 0;
+            inputData.adultsubadult_C = 0;
+            inputData.adultsubadult_ = 1;
+        }
+        if (preservationInput === "bones") {
+            inputData.preservation_ = 0;
+            inputData.preservation_bones = 1;
+            inputData.preservation_deteriorated = 0;
+            inputData.preservation_skeletalized = 0;
+            inputData.preservation_well_preserved = 0;
+        } if (preservationInput === "deteriorated") {
+            inputData.preservation_ = 0;
+            inputData.preservation_bones = 0;
+            inputData.preservation_deteriorated = 1;
+            inputData.preservation_skeletalized = 0;
+            inputData.preservation_well_preserved = 0;
+        } if (preservationInput === "skeletalized") {
+            inputData.preservation_ = 0;
+            inputData.preservation_bones = 0;
+            inputData.preservation_deteriorated = 0;
+            inputData.preservation_skeletalized = 1;
+            inputData.preservation_well_preserved = 0;
+        } else if (preservationInput === "well_preserved") {
+            inputData.preservation_ = 0;
+            inputData.preservation_bones = 0;
+            inputData.preservation_deteriorated = 0;
+            inputData.preservation_skeletalized = 0;
+            inputData.preservation_well_preserved = 1;
+        } else {
+            inputData.preservation_ = 1;
+            inputData.preservation_bones = 0;
+            inputData.preservation_deteriorated = 0;
+            inputData.preservation_skeletalized = 0;
+            inputData.preservation_well_preserved = 0;
+        }
+        if (ageAtDeathInput === "A") {
+            inputData.ageatdeath_A = 1;
+            inputData.ageatdeath_C = 0;
+            inputData.ageatdeath_I = 0;
+            inputData.ageatdeath_N = 0;
+            inputData.ageatdeath_ = 0;
+        } else if (ageAtDeathInput === "C") {
+            inputData.ageatdeath_A = 0;
+            inputData.ageatdeath_C = 1;
+            inputData.ageatdeath_I = 0;
+            inputData.ageatdeath_N = 0;
+            inputData.ageatdeath_ = 0;
+        } else if (ageAtDeathInput === "I") {
+            inputData.ageatdeath_A = 0;
+            inputData.ageatdeath_C = 0;
+            inputData.ageatdeath_I = 1;
+            inputData.ageatdeath_N = 0;
+            inputData.ageatdeath_ = 0;
+        } else if (ageAtDeathInput === "N") {
+            inputData.ageatdeath_A = 0;
+            inputData.ageatdeath_C = 0;
+            inputData.ageatdeath_I = 0;
+            inputData.ageatdeath_N = 1;
+            inputData.ageatdeath_ = 0;
+        } else {
+            inputData.ageatdeath_A = 0;
+            inputData.ageatdeath_C = 0;
+            inputData.ageatdeath_I = 0;
+            inputData.ageatdeath_N = 0;
+            inputData.ageatdeath_ = 1;
+        }
+        if (textileFunctionInput === "Blanket_shroud") {
+            inputData.textilefunctionvalue_Blanket_shroud = 1;
+            inputData.textilefunctionvalue_Fragment = 0;
+            inputData.textilefunctionvalue_Other = 0;
+            inputData.textilefunctionvalue_Ribbon = 0;
+            inputData.textilefunctionvalue_Tunic = 0;
+        } else if (textileFunctionInput === "Fragment") {
+            inputData.textilefunctionvalue_Blanket_shroud = 0;
+            inputData.textilefunctionvalue_Fragment = 1;
+            inputData.textilefunctionvalue_Other = 0;
+            inputData.textilefunctionvalue_Ribbon = 0;
+            inputData.textilefunctionvalue_Tunic = 0;
+        } else if (textileFunctionInput === "Other") {
+            inputData.textilefunctionvalue_Blanket_shroud = 0;
+            inputData.textilefunctionvalue_Fragment = 0;
+            inputData.textilefunctionvalue_Other = 1;
+            inputData.textilefunctionvalue_Ribbon = 0;
+            inputData.textilefunctionvalue_Tunic = 0;
+        } else if (textileFunctionInput === "Ribbon") {
+            inputData.textilefunctionvalue_Blanket_shroud = 0;
+            inputData.textilefunctionvalue_Fragment = 0;
+            inputData.textilefunctionvalue_Other = 0;
+            inputData.textilefunctionvalue_Ribbon = 1;
+            inputData.textilefunctionvalue_Tunic = 0;
+        } else if (textileFunctionInput === "Tunic") {
+            inputData.textilefunctionvalue_Blanket_shroud = 0;
+            inputData.textilefunctionvalue_Fragment = 0;
+            inputData.textilefunctionvalue_Other = 0;
+            inputData.textilefunctionvalue_Ribbon = 0;
+            inputData.textilefunctionvalue_Tunic = 1;
+        }
+        if (angleInput === "H") {
+            inputData.angle_H = 1;
+            inputData.angle_M = 0;
+            inputData.angle_M_H = 0;
+            inputData.angle_M_H_C = 0;
+            inputData.angle_S = 0;
+            inputData.angle_S_M = 0;
+            inputData.angle_ = 0;
+        } else if (angleInput === "M") {
+            inputData.angle_H = 0;
+            inputData.angle_M = 1;
+            inputData.angle_M_H = 0;
+            inputData.angle_M_H_C = 0;
+            inputData.angle_S = 0;
+            inputData.angle_S_M = 0;
+            inputData.angle_ = 0;
+        } else if (angleInput === "M_H") {
+            inputData.angle_H = 0;
+            inputData.angle_M = 0;
+            inputData.angle_M_H = 1;
+            inputData.angle_M_H_C = 0;
+            inputData.angle_S = 0;
+            inputData.angle_S_M = 0;
+            inputData.angle_ = 0;
+        } else if (angleInput === "M_H_C") {
+            inputData.angle_H = 0;
+            inputData.angle_M = 0;
+            inputData.angle_M_H = 0;
+            inputData.angle_M_H_C = 1;
+            inputData.angle_S = 0;
+            inputData.angle_S_M = 0;
+            inputData.angle_ = 0;
+        } else if (angleInput === "S") {
+            inputData.angle_H = 0;
+            inputData.angle_M = 0;
+            inputData.angle_M_H = 0;
+            inputData.angle_M_H_C = 0;
+            inputData.angle_S = 1;
+            inputData.angle_S_M = 0;
+            inputData.angle_ = 0;
+        } else if (angleInput === "S_M") {
+            inputData.angle_H = 0;
+            inputData.angle_M = 0;
+            inputData.angle_M_H = 0;
+            inputData.angle_M_H_C = 0;
+            inputData.angle_S = 0;
+            inputData.angle_S_M = 1;
+            inputData.angle_ = 0;
+        } else {
+            inputData.angle_H = 0;
+            inputData.angle_M = 0;
+            inputData.angle_M_H = 0;
+            inputData.angle_M_H_C = 0;
+            inputData.angle_S = 0;
+            inputData.angle_S_M = 0;
+            inputData.angle_ = 1;
+        }
+        if (manipulationInput === "Other") {
+            inputData.manipulation_Other = 1;
+            inputData.manipulation_Warp = 0;
+            inputData.manipulation_Weft = 0;
+        } else if (manipulationInput === "Warp") {
+            inputData.manipulation_Other = 0;
+            inputData.manipulation_Warp = 1;
+            inputData.manipulation_Weft = 0;
+        } else if (manipulationInput === "Weft") {
+            inputData.manipulation_Other = 0;
+            inputData.manipulation_Warp = 0;
+            inputData.manipulation_Weft = 1;
+        }
+        if (materialInput === "Linen") {
+            inputData.material_Linen = 1;
+            inputData.material_Other = 0;
+            inputData.material_Wool = 0;
+        } else if (materialInput === "Other") {
+            inputData.material_Linen = 0;
+            inputData.material_Other = 1;
+            inputData.material_Wool = 0;
+        } else if (materialInput === "Wool") {
+            inputData.material_Linen = 0;
+            inputData.material_Other = 0;
+            inputData.material_Wool = 1;
+        }
+        if (directionInput === "-") {
+            inputData.direction_ = 1;
+            inputData.direction_S = 0;
+            inputData.direction_Z = 0;
+            inputData.direction_Z_S = 0;
+        } else if (directionInput === "S") {
+            inputData.direction_ = 0;
+            inputData.direction_S = 1;
+            inputData.direction_Z = 0;
+            inputData.direction_Z_S = 0;
+        } else if (directionInput === "Z") {
+            inputData.direction_ = 0;
+            inputData.direction_S = 0;
+            inputData.direction_Z = 1;
+            inputData.direction_Z_S = 0;
+        } else if (directionInput === "Z-S") {
+            inputData.direction_ = 0;
+            inputData.direction_S = 0;
+            inputData.direction_Z = 0;
+            inputData.direction_Z_S = 1;
+        }
+            fetch('/score', {
+                method: 'POST',
+                body: JSON.stringify(inputData),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(prediction => {
+                    // Update the h4 tag with the prediction result
+                    console.log(prediction);
+                    document.querySelector('#predictionResult').textContent = String(prediction.predictedValue);
+                })
+                .catch(error => {
+                    alert("Something went wrong...");
+                });
+    }
+        updateInputData();
+
+    //event.preventDefault(); // prevent default form submission behavior
+
+
+    //const submitButton = document.querySelector('#submitButton');
+    //submitButton.addEventListener('click', updateInputData);
+    });
+</script>

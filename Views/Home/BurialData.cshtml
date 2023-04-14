@@ -7,51 +7,63 @@
 
 <p>Here is our database of the different burials our team has discovered.  Use our built in filters to explore the data.</p>
 
-    <form method="post">
-        <label for="burialId">Burial ID:</label>
-        <input type="text" id="burialId" name="burialId" >
 
-        <label for="depth">Burial Depth:</label>
-        <input type="text" id="depth" name="depth" >
+@model BurialmainsViewModel
 
-        <vc:age-at-death></vc:age-at-death>
 
-        <label for="sex">Sex:</label>
-        <select id="sex" name="sex" >
-            <option value="">Select Sex</option>
-            <option value="M">Male</option>
-            <option value="F">female</option>
-        </select>
-        <label for="haircolor">Hair Color:</label>
-        <select id="haircolor" name="haircolor"  >
-            <option value="">Select Hair Color</option>
-            <option value="K">Black</option>
-            <option value="d">Blond</option>
-            <option value="B">Brown</option>
-            <option value="A">Auburn</option>
-            <option value="R">Red</option>
-        </select>
-        <label for="estimatedStature">Estimated Stature:</label>
-        <input type="text" id="estimatedStature" name="estimatedStature"  >
+    <form>
+        <div class="row form-text text-center">
 
-        <label for="headdirection">Head Direction:</label>
-        <select id="headdirection" name="headdirection" >
-            <option value=""></option>
-            <option value="W">West</option>
-            <option value="E">East</option>
-        </select>
+            <div class="form-group m-1">
+                <label for="burialId">Burial ID:</label>
+                <input type="text" id="burialId" name="burialId">
 
-        <label for="textilecolor">Textile color:</label>
-        <input type="text" id="textilecolor" name="textilecolor" >
+                <label for="depth">Burial Depth:</label>
+                <input type="text" id="depth" name="depth">
+                <vc:age-at-death></vc:age-at-death>
+                <label for="sex">Sex:</label>
+                <select id="sex" name="sex">
+                    <option value="">Select Sex</option>
+                    <option value="M">Male</option>
+                    <option value="F">female</option>
+                </select>
+                <label for="haircolor">Hair Color:</label>
+                <select id="haircolor" name="haircolor">
+                    <option value="">Select Hair Color</option>
+                    <option value="K">Black</option>
+                    <option value="d">Blond</option>
+                    <option value="B">Brown</option>
+                    <option value="A">Auburn</option>
+                    <option value="R">Red</option>
+                </select>
+                <label for="headdirection">Head Direction:</label>
+                <select id="headdirection" name="headdirection">
+                    <option value=""></option>
+                    <option value="W">West</option>
+                    <option value="E">East</option>
+                </select>
+            </div>
 
-        <label for="textilestructure">Textile Structure:</label>
-        <input type="text" id="textilestructure" name="textilestructure" >
+            <div class="form-group m-1">
+                
+                <label for="estimatedStature">Estimated Stature:</label>
+                <input type="text" id="estimatedStature" name="estimatedStature">
 
-        <label for="textileFunction">Textile Function:</label>
-        <input type="text" id="textilefunction" name="textilefunction" >
+                
+                <label for="textilecolor">Textile color:</label>
+                <input type="text" id="textilecolor" name="textilecolor">
 
-        <button type="submit" class="btn btn-secondary">Search</button>
-        <button onclick="resetView()" class="btn btn-secondary">Reset Fields</button>
+                <label for="textilestructure">Textile Structure:</label>
+                <input type="text" id="textilestructure" name="textilestructure">
+
+                <label for="textileFunction">Textile Function:</label>
+                <input type="text" id="textilefunction" name="textilefunction">
+            </div>
+        </div>
+        <div class="text-center m-2">
+            <button type="submit" class="btn btn-secondary">Search</button>
+            <button onclick="resetView()" class="btn btn-secondary">Reset Fields</button>
+        </div>
     </form>
 
     <div class="text-center m-3">

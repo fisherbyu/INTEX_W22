@@ -47,9 +47,10 @@
         border-radius: 5px;
         cursor: pointer;
     }
-</style>
 
-<h1>Supervised Model 1</h1>
+</style>
+<br>
+<h1 style="text-align:center">Supervised Model 1</h1>
 
 <form>
     <div class="row">
@@ -148,13 +149,15 @@
                 <option value="Z">Z</option>
                 <option value="Z_S">Z_S</option>
             </select>
-            <button id="custom-button">Submit</button>
-        </div>
+            
+        </div> 
     </div>
+    <button id="custom-button">Submit</button>
+    <h4>Prediction:</h4>
+    <h4 id="predictionResult"></h4>
 </form>
 
-<h4>Prediction:</h4>
-<h4 id="predictionResult"></h4>
+
 
 <script>
     const customButton = document.getElementById('custom-button');

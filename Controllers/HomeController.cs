@@ -10,7 +10,8 @@ using System;
 using System.Drawing;
 using BYU_EGYPT_INTEX.Component;
 using System.Drawing.Printing;
-using System.Linq; 
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BYU_EGYPT_INTEX.Controllers;
 
@@ -39,37 +40,44 @@ public class HomeController : Controller
         //Test Git again
     }
 
-    [HttpGet]
-    public IActionResult BurialData(int pageNum = 1)
-    {
-        int resultLength = 15;
-        int pageNumber = pageNum;
 
-        var data = new BurialmainsViewModel
-        {
-            masterfilters = repo.masterfilters
-                .OrderBy(x => x.Burialid)
-                .Skip((pageNum - 1) * resultLength)
-                .Take(resultLength),
-
-            PageInfo = new PageInfo
-            {
-                TotalNumBurials = repo.masterfilters.Count(),
-                BurialsPerPage = resultLength,
-                CurrentPage = pageNum
-            }
-        };
-        return View(data);
-     }
-
-    [HttpPost]
     public IActionResult BurialData(string? burialid, string? depth, string? ageatdeath, string? sex, string? haircolor,
         int? estimatestature, string? headdirection, string? textilecolor, string? textilestructure, string? textilefunction,
         int pageNum = 1)
     {
-        int resultLength = 15;
+        int resultLength = 50;
         int pageNumber = pageNum;
-       
+
+        // Define the search criteria
+        var searchCriteria = new
+        {
+            Column1 = burialid,
+            Column2 = depth,
+            Column3 = ageatdeath,
+            Column4 = sex,
+            Column5 = haircolor,
+            Column6 = estimatestature,
+            Column7 = headdirection,
+            Column8 = textilecolor,
+            Column9 = textilestructure,
+            Column10 = textilefunction
+        };
+
+        // Count the number of records that match the search criteria
+        var matchingRecords = repo.masterfilters.Where(data =>
+            (searchCriteria.Column1 == null || data.Burialid == searchCriteria.Column1) &&
+            (searchCriteria.Column2 == null || data.Depth == searchCriteria.Column2) &&
+            (searchCriteria.Column3 == null || data.Ageatdeath == searchCriteria.Column3) &&
+            (searchCriteria.Column3 == null || data.Sex == searchCriteria.Column4) &&
+            (searchCriteria.Column3 == null || data.Haircolor == searchCriteria.Column5) &&
+            (searchCriteria.Column3 == null || data.Estimatestature == searchCriteria.Column6) &&
+            (searchCriteria.Column3 == null || data.Headdirection == searchCriteria.Column7) &&
+            (searchCriteria.Column3 == null || data.Color == searchCriteria.Column8) &&
+            (searchCriteria.Column3 == null || data.TextileStructure == searchCriteria.Column9) &&
+            (searchCriteria.Column3 == null || data.Textilefunction == searchCriteria.Column10)
+        );
+        var totalNumBurials = matchingRecords.Count();
+
         var data = new BurialmainsViewModel
         {
             masterfilters = repo.masterfilters
@@ -89,10 +97,10 @@ public class HomeController : Controller
 
             PageInfo = new PageInfo
             {
-                TotalNumBurials =
-                (ageatdeath == null
-                ? repo.masterfilters.Count()
-                : repo.masterfilters.Where(data => data.Ageatdeath == ageatdeath).Count()),
+                TotalNumBurials = totalNumBurials,
+                //(ageatdeath == null
+                //? repo.masterfilters.Count()
+                //: repo.masterfilters.Where(data => data.Ageatdeath == ageatdeath).Count()),
                 BurialsPerPage = resultLength,
                 CurrentPage = pageNumber
             }

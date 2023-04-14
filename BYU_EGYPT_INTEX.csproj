@@ -11,10 +11,9 @@
     <None Remove="Models\EgyptData\" />
     <None Remove="Models\ViewModels\" />
     <None Remove="Models\AnalyticsModels\" />
-    
-    <None Remove="Core\" />
-    <None Remove="Core\Repo\" />
-    <None Remove="Repo\" />
+    <None Remove="Infrastructure\" />
+    <None Remove="Component\" />
+    <None Remove="Views\Shared\Components\HairColor\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.15" />
@@ -27,19 +26,30 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.16" />
     <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.14.1" />
+    <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="6.1.4" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Models\EgyptData\" />
     <Folder Include="Models\ViewModels\" />
+    <Folder Include="Models\AnalyticsModels\" />
+    <Folder Include="wwwroot\img\" />
     <Folder Include="Infrastructure\" />
-
     <Folder Include="Core\" />
     <Folder Include="Core\Repo\" />
     <Folder Include="Repo\" />
+    <Folder Include="Component\" />
+    <Folder Include="Views\Shared\Components\HairColor\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />
     <Compile Remove="Data\ApplicationDbContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\onnxStuff\bmsupermodel2final.onnx" />
+    <None Include="wwwroot\onnxStuff\textilesupermodelfinal.onnx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\img\" />
   </ItemGroup>
 </Project>

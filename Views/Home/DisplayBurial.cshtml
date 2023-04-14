@@ -1,52 +1,123 @@
-﻿@model BurialComposite
-
-@{
-    ViewData["Title"] = "Burial Info";
-}
-
+﻿@model DisplayBurialViewModel
 <h1>@Model.BurialId Info</h1>
+
 
 
 <table class="table table-bordered table-striped">
     <thead class="font-weight-bold">
         <tr>
-            <td>Burial Depth</td>
-            <td>Age at Death</td>
-            <td>Sex</td>
-            <td>Hair Color</td>
-            <td>Estimated Stature</td>
-            <td>Head Direction</td>
+            <td>Sex:</td>
+            <td>Depth:</td>
+            <td>AdultSubadult:</td>
+            <td>Face Bundles:</td>
+            <td>Preservation:</td>
+            <td>Field Book Page:</td>
+            <td>Goods:</td>
+            <td>Text:</td>
+            <td>Wrapping:</td>
         </tr>
     </thead>
     <tbody>
-        <tr key="@Model.burial.Id">
-            <td>@Model.burial.Depth</td>
-            <td>@Model.burial.Ageatdeath</td>
+        <tr>
             <td>@Model.burial.Sex</td>
+            <td>@Model.burial.Depth</td>
+            <td>@Model.burial.Adultsubadult</td>
+            <td>@Model.burial.Facebundles</td>
+            <td>@Model.burial.Preservation</td>
+            <td>@Model.burial.Fieldbookpage</td>
+            <td>@Model.burial.Goods</td>
+            <td>@Model.burial.Text</td>
+            <td>@Model.burial.Wrapping</td>
+        </tr>
+    </tbody>
+    <thead class="font-weight-bold">
+        <tr>
+            <td>Hair Color:</td>
+            <td>Samples Collected:</td>
+            <td>Length:</td>
+            <td>Burial Number:</td>
+            <td>Data Expert Initial:</td>
+            <td>Age at Death:</td>
+            <td>Field Book Excavation Year:</td>
+            <td>Cluster Number:</td>
+            <td>Shaft Number:</td>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
             <td>@Model.burial.Haircolor</td>
-            <td>Estimatestature</td>
-            <td>@Model.burial.Headdirection</td>
+            <td>@Model.burial.Samplescollected</td>
+            <td>@Model.burial.Length</td>
+            <td>@Model.burial.Burialnumber</td>
+            <td>@Model.burial.Dataexpertinitials</td>
+            <td>@Model.burial.Ageatdeath</td>
+            <td>@Model.burial.Fieldbookexcavationyear</td>
+            <td>@Model.burial.Clusternumber</td>
+            <td>@Model.burial.Shaftnumber</td>
         </tr>
     </tbody>
 </table>
 
+@*Textiles:*@
 
 
-@foreach (Textile textile in Model.textiles)
+
+@if (Model.textiles.Count() > 0)
 {
-    <table class="table table-bordered table-striped">
-        <caption>@textile.Id</caption>
-        <thead class="font-weight-bold">
-            <tr>
-                <td>Textile color</td>
-                <td>Textile Structure</td>
-                <td>Textile Function</td>
-            </tr>
-        </thead>
-        <tbody>
-            <td>COLOR</td>
-            <td>STRUCTURE</td>
-            <td>FUNCTION</td>
-        </tbody>
-    </table>
+    <h2>Textiles:</h2>
+    @foreach (TextileComposite textile in Model.textiles)
+    {
+        <h4>@textile.textile.Id</h4>
+        <table class="table table-bordered table-striped">
+            <thead class="font-weight-bold">
+                <tr>
+                    <td>Description:</td>
+                    <td>Estimated Period:</td>
+                    <td>Sample Date:</td>
+                    <td>Photo Date:</td>
+                    <td>Colors:</td>
+                    <td>Function:</td>
+                    <td>Structures:</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@textile.textile.Description</td>
+                    <td>@textile.textile.Estimatedperiod</td>
+                    <td>@textile.textile.Sampledate</td>
+                    <td>@textile.textile.Photographeddate</td>
+                    <td>@textile.colorString</td>
+                    <td>@textile.functionString</td>
+                    <td>@textile.structureString</td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    }
+}
+
+@if (Model.artifacts.Count() > 0)
+{
+    <h2>Artifacts:</h2>
+    @foreach (Artifactkomaushimregister artifact in Model.artifacts)
+    {
+        <table class="table table-bordered table-striped">
+            <thead class="font-weight-bold">
+                <tr>
+                    <td>Provenance:</td>
+                    <td>Description:</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@artifact.Provenance</td>
+                    <td>@artifact.Description</td>
+                </tr>
+            </tbody>
+
+        </table>
+    }
 }

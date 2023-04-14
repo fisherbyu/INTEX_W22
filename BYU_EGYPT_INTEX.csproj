@@ -33,8 +33,10 @@
   <ItemGroup>
     <Folder Include="Models\EgyptData\" />
     <Folder Include="Models\ViewModels\" />
+    <Folder Include="Models\AnalyticsModels\" />
+    <Folder Include="wwwroot\img\" />
     <Folder Include="Infrastructure\" />
-<Folder Include="Component\" />
+    <Folder Include="Component\" />
     <Folder Include="Views\Shared\Components\HairColor\" />
   </ItemGroup>
   <ItemGroup>
@@ -44,5 +46,8 @@
   <ItemGroup>
     <None Include="wwwroot\onnxStuff\bmsupermodel2final.onnx" />
     <None Include="wwwroot\onnxStuff\textilesupermodelfinal.onnx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\img\" />
   </ItemGroup>
 </Project>

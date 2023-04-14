@@ -5,6 +5,8 @@ using Microsoft.ML.OnnxRuntime;
 using static BYU_EGYPT_INTEX.Component.AgeAtDeathViewComponent;
 using NuGet.Protocol.Core.Types;
 using BYU_EGYPT_INTEX.Areas.Identity.Data;
+using BYU_EGYPT_INTEX.Core.Repo;
+using BYU_EGYPT_INTEX.Repo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +40,9 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+
+AddScoped();
+
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
     // This lambda determines whether user consent for non-essential
@@ -47,7 +52,6 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     options.MinimumSameSitePolicy = SameSiteMode.None;
     options.ConsentCookie.SecurePolicy = CookieSecurePolicy.Always;
 });
-
 
 var app = builder.Build();
 
@@ -85,3 +89,10 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 app.Run();
+
+void AddScoped()
+{
+    builder.Services.AddScoped<IUserRepo, UserRepo>();
+    builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+    builder.Services.AddScoped<IRoleRepo, RoleRepo>();
+}

@@ -11,7 +11,6 @@
     <None Remove="Models\EgyptData\" />
     <None Remove="Models\ViewModels\" />
     <None Remove="Models\AnalyticsModels\" />
-
     <None Remove="Infrastructure\" />
     <None Remove="Component\" />
     <None Remove="Views\Shared\Components\HairColor\" />
@@ -36,6 +35,9 @@
     <Folder Include="Models\AnalyticsModels\" />
     <Folder Include="wwwroot\img\" />
     <Folder Include="Infrastructure\" />
+    <Folder Include="Core\" />
+    <Folder Include="Core\Repo\" />
+    <Folder Include="Repo\" />
     <Folder Include="Component\" />
     <Folder Include="Views\Shared\Components\HairColor\" />
   </ItemGroup>

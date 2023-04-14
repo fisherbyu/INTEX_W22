@@ -10,7 +10,10 @@ using System;
 using System.Drawing;
 using BYU_EGYPT_INTEX.Component;
 using System.Drawing.Printing;
-using System.Linq; 
+using System.Linq;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using LinqKit;
+using System.Text.RegularExpressions;
 
 namespace BYU_EGYPT_INTEX.Controllers;
 
@@ -39,11 +42,57 @@ public class HomeController : Controller
         //Test Git again
     }
     
-    public IActionResult BurialData(string ageatdeath, string haircolor, int pageNum = 1)
+    public IActionResult BurialDatastring(string? burialid, string? depth, string? ageatdeath, string? sex, string? haircolor,
+        string? estimatestature, string? headdirection, string? textilecolor, string? textilestructure, string? textilefunction,
+        int pageNum = 1)
     {
         int resultLength = 15;
-        int pageNumber = pageNum;
-       
+
+        var predicate = PredicateBuilder.New<Masterfilter>(true);
+
+        if (!string.IsNullOrEmpty(burialid))
+        {
+            predicate = predicate.And(b => Regex.IsMatch(b.Burialid, burialid));
+        }
+        if (!string.IsNullOrEmpty(depth))
+        {
+            predicate = predicate.And(d => Regex.IsMatch(d.Depth, depth));
+        }
+        if (!string.IsNullOrEmpty(ageatdeath))
+        {
+            predicate = predicate.And(a => Regex.IsMatch(a.Ageatdeath, ageatdeath));
+        }
+        if (!string.IsNullOrEmpty(sex))
+        {
+            predicate = predicate.And(s => Regex.IsMatch(s.Sex, sex));
+        }
+        if (!string.IsNullOrEmpty(haircolor))
+        {
+            predicate = predicate.And(h => Regex.IsMatch(h.Haircolor, haircolor));
+        }
+        if (!string.IsNullOrEmpty(estimatestature))
+        {
+            predicate = predicate.And(e => Regex.IsMatch(e.Estimatestature.ToString(), estimatestature));
+        }
+        if (!string.IsNullOrEmpty(headdirection))
+        {
+            predicate = predicate.And(hd => Regex.IsMatch(hd.Headdirection, headdirection));
+        }
+        if (!string.IsNullOrEmpty(textilecolor))
+        {
+            predicate = predicate.And(tc => Regex.IsMatch(tc.Color, textilecolor));
+        }
+        if (!string.IsNullOrEmpty(textilestructure))
+        {
+            predicate = predicate.And(ts => Regex.IsMatch(ts.TextileStructure, textilestructure));
+        }
+        if (!string.IsNullOrEmpty(textilefunction))
+        {
+            predicate = predicate.And(tf => Regex.IsMatch(tf.Textilefunction, textilefunction));
+        }
+
+
+
         var data = new BurialmainsViewModel
         {
             masterfilters = repo.masterfilters
@@ -59,10 +108,10 @@ public class HomeController : Controller
                 ? repo.masterfilters.Count()
                 : repo.masterfilters.Where(data => data.Ageatdeath == ageatdeath).Count()),
                 BurialsPerPage = resultLength,
-                CurrentPage = pageNumber
+                CurrentPage = pageNum
             }
         };
-        return View(data);
+        return View(predicate);
 
     }
 

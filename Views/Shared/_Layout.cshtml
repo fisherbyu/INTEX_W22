@@ -35,15 +35,15 @@
                     </li>
                     @if (SignInManager.IsSignedIn(User))
                     {
-                      <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                              Admin
-                          </a>
-                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="User" asp-action="Index" style="color: #333;">Manage Users</a></li>
-                              <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="User" asp-action="ManageRecords" style="color: #333;">Manage Records</a></li>
-                          </ul>
-                      </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Admin
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="User" asp-action="Index" style="color: #333;">Manage Users</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="User" asp-action="ManageRecords" style="color: #333;">Manage Records</a></li>
+                            </ul>
+                        </li>
                     }
                     <li class="nav-item">
                         <partial name="_LoginPartial" />

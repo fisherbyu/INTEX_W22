@@ -10,88 +10,88 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BYU_EGYPT_INTEX.Controllers
 {
-    [Authorize(Roles="Administrator, User")]
-    public class BurialmainController : Controller
+    [Authorize(Roles = "Administrator, User")]
+    public class Color : Controller
     {
         private readonly egyptbyuContext _context;
 
-        public BurialmainController(egyptbyuContext context)
+        public Color(egyptbyuContext context)
         {
             _context = context;
         }
 
-        // GET: Burialmain
+        // GET: Color
         public async Task<IActionResult> Index()
         {
-              return _context.Burialmains != null ? 
-                          View(await _context.Burialmains.ToListAsync()) :
-                          Problem("Entity set 'egyptbyuContext.Burialmains'  is null.");
+              return _context.Colors != null ? 
+                          View(await _context.Colors.ToListAsync()) :
+                          Problem("Entity set 'egyptbyuContext.Colors'  is null.");
         }
 
-        // GET: Burialmain/Details/5
+        // GET: Color/Details/5
         public async Task<IActionResult> Details(long? id)
         {
-            if (id == null || _context.Burialmains == null)
+            if (id == null || _context.Colors == null)
             {
                 return NotFound();
             }
 
-            var burialmain = await _context.Burialmains
+            var color = await _context.Colors
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (burialmain == null)
+            if (color == null)
             {
                 return NotFound();
             }
 
-            return View(burialmain);
+            return View(color);
         }
 
-        // GET: Burialmain/Create
+        // GET: Color/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Burialmain/Create
+        // POST: Color/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Squarenorthsouth,Headdirection,Sex,Northsouth,Depth,Eastwest,Adultsubadult,Facebundles,Southtohead,Preservation,Fieldbookpage,Squareeastwest,Goods,Text,Wrapping,Haircolor,Westtohead,Samplescollected,Area,Burialid,Length,Burialnumber,Dataexpertinitials,Westtofeet,Ageatdeath,Southtofeet,Excavationrecorder,Photos,Hair,Burialmaterials,Dateofexcavation,Fieldbookexcavationyear,Clusternumber,Shaftnumber")] Burialmain burialmain)
+        public async Task<IActionResult> Create([Bind("Id,Value,Colorid")] Color color)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(burialmain);
+                _context.Add(color);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(burialmain);
+            return View(color);
         }
 
-        // GET: Burialmain/Edit/5
+        // GET: Color/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
-            if (id == null || _context.Burialmains == null)
+            if (id == null || _context.Colors == null)
             {
                 return NotFound();
             }
 
-            var burialmain = await _context.Burialmains.FindAsync(id);
-            if (burialmain == null)
+            var color = await _context.Colors.FindAsync(id);
+            if (color == null)
             {
                 return NotFound();
             }
-            return View(burialmain);
+            return View(color);
         }
 
-        // POST: Burialmain/Edit/5
+        // POST: Color/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Squarenorthsouth,Headdirection,Sex,Northsouth,Depth,Eastwest,Adultsubadult,Facebundles,Southtohead,Preservation,Fieldbookpage,Squareeastwest,Goods,Text,Wrapping,Haircolor,Westtohead,Samplescollected,Area,Burialid,Length,Burialnumber,Dataexpertinitials,Westtofeet,Ageatdeath,Southtofeet,Excavationrecorder,Photos,Hair,Burialmaterials,Dateofexcavation,Fieldbookexcavationyear,Clusternumber,Shaftnumber")] Burialmain burialmain)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Value,Colorid")] Models.Color color)
         {
-            if (id != burialmain.Id)
+            if (id != color.Id)
             {
                 return NotFound();
             }
@@ -100,12 +100,12 @@ namespace BYU_EGYPT_INTEX.Controllers
             {
                 try
                 {
-                    _context.Update(burialmain);
+                    _context.Update(color);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BurialmainExists(burialmain.Id))
+                    if (!ColorExists(color.Id))
                     {
                         return NotFound();
                     }
@@ -116,49 +116,49 @@ namespace BYU_EGYPT_INTEX.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(burialmain);
+            return View(color);
         }
 
-        // GET: Burialmain/Delete/5
+        // GET: Color/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
-            if (id == null || _context.Burialmains == null)
+            if (id == null || _context.Colors == null)
             {
                 return NotFound();
             }
 
-            var burialmain = await _context.Burialmains
+            var color = await _context.Colors
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (burialmain == null)
+            if (color == null)
             {
                 return NotFound();
             }
 
-            return View(burialmain);
+            return View(color);
         }
 
-        // POST: Burialmain/Delete/5
+        // POST: Color/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            if (_context.Burialmains == null)
+            if (_context.Colors == null)
             {
-                return Problem("Entity set 'egyptbyuContext.Burialmains'  is null.");
+                return Problem("Entity set 'egyptbyuContext.Colors'  is null.");
             }
-            var burialmain = await _context.Burialmains.FindAsync(id);
-            if (burialmain != null)
+            var color = await _context.Colors.FindAsync(id);
+            if (color != null)
             {
-                _context.Burialmains.Remove(burialmain);
+                _context.Colors.Remove(color);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BurialmainExists(long id)
+        private bool ColorExists(long id)
         {
-          return (_context.Burialmains?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Colors?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

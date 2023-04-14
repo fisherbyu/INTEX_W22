@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,42 +7,165 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BYU_EGYPT_INTEX.styles.css" asp-append-version="true" />
+    <link href="c:\users\danie\source\repos\intex_w22\wwwroot\css\styles.css" rel="stylesheet" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BYU_EGYPT_INTEX</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+    
+@*       <nav class="custom-navbar">
+            <div class="custom-navbar-container container-fluid">
+                <a class="custom-navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/img/buffalo-2-svgrepo-com.svg" />
+                </a>
+                <button class="custom-navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".custom-navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <div class="custom-navbar-collapse collapse d-sm-inline-flex">
+                    <ul class="custom-navbar-nav flex-grow-1">
+                        <li class="custom-nav-item">
+                            <a class="custom-nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="custom-nav-item">
+                            <a class="custom-nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="custom-nav-item">
+                            <a class="custom-nav-link" asp-area="" asp-controller="Home" asp-action="BurialData">Data</a>
+                        </li>
+                        <li class="custom-nav-item">
+                            <a class="custom-nav-link" href="#" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Models
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li class="custom-nav-item">
+                                    <a class="custom-nav-link" asp-area="" asp-controller="Home" asp-action="Supervised">Supervised Model 1</a>
+                                </li>
+                                <li class="custom-nav-item">
+                                    <a class="custom-nav-link" asp-area="" asp-controller="Home" asp-action="Supervised2">Supervised Model 2</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="custom-nav-item">
+                            <a class="custom-nav-link" href="#" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Admin
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li class="custom-nav-item">
+                                    <a class="custom-nav-link" asp-area="" asp-controller="User" asp-action="Index">Manage Users</a>
+                                </li>
+                                <li class="custom-nav-item">
+                                    <a class="custom-nav-link" asp-area="" asp-controller="User" asp-action="ManageRecords">Manage Records</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <partial name="_LoginPartial" />
+                    </ul>
+                </div>
+            </div>
+        </nav>*@
+
+
+
+
+        @*This is the working stuff from earlier.
+            Commenting it out in favor of a custom bootstrp. 
+            May be pulling from here later.
+        *@
+        @*<nav class="custom-navbar">
+            <div class="custom-navbar-container container-fluid">
+                <a class="custom-navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/img/buffalo-2-svgrepo-com.svg" />
+                </a>
+                <button class="custom-navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".custom-navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="custom-navbar-collapse collapse d-sm-inline-flex">
+                    <ul class="custom-navbar-nav flex-grow-1">
+                        <li class="custom-nav-item">
+                            <a class="custom-nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="custom-nav-item">
+                            <a class="custom-nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="custom-nav-item">
+                            <a class="custom-nav-link" asp-area="" asp-controller="Home" asp-action="BurialData">Data</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Models
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li class="custom-nav-item">
+                                    <a class="custom-nav-link" asp-area="" asp-controller="Home" asp-action="Supervised">Supervised Model 1</a>
+                                </li>
+                                <li class="custom-nav-item">
+                                    <a class="custom-nav-link" asp-area="" asp-controller="Home" asp-action="Supervised2">Supervised Model 2</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Admin
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li class="custom-nav-item">
+                                    <a class="custom-nav-link" asp-area="" asp-controller="User" asp-action="Index">Manage Users</a>
+                                </li>
+                                <li class="custom-nav-item">
+                                    <a class="custom-nav-link" asp-area="" asp-controller="User" asp-action="ManageRecords">Manage Records</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="BurialData">Data</a>
+                            <partial name="_LoginPartial" />
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Unsupervised">Unsupervised</a>
                         </li>
                     </ul>
-                    <partial name="_LoginPartial" />
                 </div>
             </div>
-        </nav>
-    </header>
+        </nav>*@
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Fag el-Gamous</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="BurialData">Data</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Models
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Supervised" style="color: #333;">Supervised 1</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Supervised2" style="color: #333;">Supervised 2</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="User" asp-action="Index" style="color: #333;">Manage Users</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="User" asp-action="ManageRecords" style="color: #333;">Manage Records</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <partial name="_LoginPartial" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="container">
+        <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
+    <br />
+    <br />
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - BYU_EGYPT_INTEX - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>

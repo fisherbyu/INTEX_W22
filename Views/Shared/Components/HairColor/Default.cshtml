@@ -1,0 +1,17 @@
+﻿@{
+}
+
+@model IEnumerable<string>
+
+
+
+<label for="haircolor">Hair Color:</label>
+<select id="haircolor" name="haircolor">
+
+    @foreach (object a in Model)
+    {
+        <option value="@a">@a</option>
+
+        
+    }
+</select>

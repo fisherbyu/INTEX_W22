@@ -1,17 +1,18 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using BYU_EGYPT_INTEX.Data;
 using BYU_EGYPT_INTEX.Models;
 using Microsoft.ML.OnnxRuntime;
+using static BYU_EGYPT_INTEX.Component.AgeAtDeathViewComponent;
+using NuGet.Protocol.Core.Types;
+using BYU_EGYPT_INTEX.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add user database to the container.
 var authConnectString = builder.Configuration["ConnectionStrings:AuthLink"];
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(authConnectString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
 
 
 //Connect Database:
@@ -20,9 +21,11 @@ builder.Services.AddDbContext<egyptbyuContext>(options =>
     options.UseNpgsql(conectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+//connect repository
+builder.Services.AddScoped<IFilterRepository, EfFilterRepository>();
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = true;
+    options.SignIn.RequireConfirmedAccount = false;
     // Require better passwords
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
@@ -30,12 +33,20 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 8;
     options.Password.RequiredUniqueChars = 1;
-}).AddEntityFrameworkStores<ApplicationDbContext>();
+})
+    .AddRoles<IdentityRole>() //Add role service
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-//Setup Analysis API
-builder.Services.AddSingleton<InferenceSession>(
-    new InferenceSession("Models/AnalyticsModels/supertextmodel.onnx"));
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    // This lambda determines whether user consent for non-essential
+    // cookies is needed for a given request.
+    options.CheckConsentNeeded = context => true;
+    // requires using Microsoft.AspNetCore.Http;
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+    options.ConsentCookie.SecurePolicy = CookieSecurePolicy.Always;
+});
 
 
 var app = builder.Build();
@@ -54,6 +65,7 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseCookiePolicy();
 
 app.UseRouting();
 
@@ -69,7 +81,7 @@ app.Use(async (context, next) =>
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapRazorPages();
 
 app.Run();
-

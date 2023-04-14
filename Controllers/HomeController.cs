@@ -41,7 +41,7 @@ public class HomeController : Controller
         return View();
         //Test Git again
     }
-    
+
     public IActionResult BurialDatastring(string? burialid, string? depth, string? ageatdeath, string? sex, string? haircolor,
         string? estimatestature, string? headdirection, string? textilecolor, string? textilestructure, string? textilefunction,
         int pageNum = 1)
@@ -91,29 +91,21 @@ public class HomeController : Controller
             predicate = predicate.And(tf => Regex.IsMatch(tf.Textilefunction, textilefunction));
         }
 
+        var masterfilters = repo.masterfilters
+                .Where(predicate)
+                .ToList();
 
-
-        var data = new BurialmainsViewModel
+        PageInfo = new PageInfo
         {
-            masterfilters = repo.masterfilters
-                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
-                .OrderBy(x => x.Burialid)
-                .Skip((pageNum - 1) * resultLength)
-                .Take(resultLength),
-
-            PageInfo = new PageInfo
-            {
-                TotalNumBurials =
-                (ageatdeath == null
-                ? repo.masterfilters.Count()
-                : repo.masterfilters.Where(data => data.Ageatdeath == ageatdeath).Count()),
-                BurialsPerPage = resultLength,
-                CurrentPage = pageNum
-            }
+            TotalNumBurials =
+            (ageatdeath == null
+            ? repo.masterfilters.Count()
+            : repo.masterfilters.Where(data => data.Ageatdeath == ageatdeath).Count()),
+            BurialsPerPage = resultLength,
+            CurrentPage = pageNum
         };
         return View(predicate);
-
-    }
+ }
 
     public IActionResult DisplayBurial(long ID)
     {

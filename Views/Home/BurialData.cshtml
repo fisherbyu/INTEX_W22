@@ -9,7 +9,70 @@
 
 @model BurialmainsViewModel
 
-    <form method="post">
+    @*<form>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="burialId">Burial ID</label>
+                <input type="text" id="burialId" name="burialId">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="depth">Burial Depth</label>
+                <input type="text" id="depth" name="depth">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="textilecolor">Textile color:</label>
+            <input type="text" id="textilecolor" name="textilecolor">
+        </div>
+        <div class="form-group">
+            <label for="textilestructure">Textile Structure:</label>
+            <input type="text" id="textilestructure" name="textilestructure">
+        </div>
+        <div class="form-group">
+            <label for="textileFunction">Textile Function:</label>
+            <input type="text" id="textilefunction" name="textilefunction">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="sex">Sex:</label>
+                <select id="sex" name="sex">
+                    <option value="">Select Sex</option>
+                    <option value="M">Male</option>
+                    <option value="F">female</option>
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <vc:age-at-death></vc:age-at-death>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="haircolor">Hair Color:</label>
+                <select id="haircolor" name="haircolor">
+                    <option value="">Select Hair Color</option>
+                    <option value="K">Black</option>
+                    <option value="d">Blond</option>
+                    <option value="B">Brown</option>
+                    <option value="A">Auburn</option>
+                    <option value="R">Red</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group col-md-4">
+                <label for="headdirection">Head Direction:</label>
+                <select id="headdirection" name="headdirection">
+                    <option value=""></option>
+                    <option value="W">West</option>
+                    <option value="E">East</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-secondary">Search</button>
+        <button onclick="resetView()" class="btn btn-secondary">Reset Fields</button>
+    </form>*@
+
+
+
+    <form>
         <label for="burialId">Burial ID:</label>
         <input type="text" id="burialId" name="burialId">
 
@@ -20,13 +83,19 @@
 
         <label for="sex">Sex:</label>
         <select id="sex" name="sex">
-            <option value="">Select sex</option>
+            <option value="">Select Sex</option>
             <option value="M">Male</option>
             <option value="F">female</option>
-        </select><br />
-
-        <vc:hair-color></vc:hair-color>
-
+        </select>
+        <label for="haircolor">Hair Color:</label>
+        <select id="haircolor" name="haircolor">
+            <option value="">Select Hair Color</option>
+            <option value="K">Black</option>
+            <option value="d">Blond</option>
+            <option value="B">Brown</option>
+            <option value="A">Auburn</option>
+            <option value="R">Red</option>
+        </select>
         <label for="estimatedStature">Estimated Stature:</label>
         <input type="text" id="estimatedStature" name="estimatedStature">
 
@@ -35,7 +104,7 @@
             <option value=""></option>
             <option value="W">West</option>
             <option value="E">East</option>
-        </select><br />
+        </select>
 
         <label for="textilecolor">Textile color:</label>
         <input type="text" id="textilecolor" name="textilecolor">
@@ -46,8 +115,8 @@
         <label for="textileFunction">Textile Function:</label>
         <input type="text" id="textilefunction" name="textilefunction">
 
-        <button type="submit">Search</button>
-        <button onclick="resetView()">Reset Fields</button>
+        <button type="submit" class="btn btn-secondary">Search</button>
+        <button onclick="resetView()" class="btn btn-secondary">Reset Fields</button>
     </form>
 
     <div class="text-center m-3">
@@ -87,8 +156,8 @@
             }
         </tbody>
     </table>
-    <div page-action="Index">
-        <div page-model="@Model.PageInfo" page-action="Index" page-classes-enabled="true"
+    <div page-action="BurialData">
+        <div page-model="@Model.PageInfo" page-action="BurialData" page-classes-enabled="true"
              page-class="btn" page-class-normal="btn-outline-dark"
              page-class-selected="btn-primary" class="btn-group pull-right m-1">
         </div>

@@ -10,6 +10,7 @@ using System;
 using System.Drawing;
 using BYU_EGYPT_INTEX.Component;
 using System.Drawing.Printing;
+using System.Linq; 
 
 namespace BYU_EGYPT_INTEX.Controllers;
 
@@ -38,37 +39,19 @@ public class HomeController : Controller
         //Test Git again
     }
     
-    public IActionResult BurialData(string ageatdeath, int pageNum = 1)
+    public IActionResult BurialData(string ageatdeath, string haircolor, int pageNum = 1)
     {
-        int resultLength = 10;
+        int resultLength = 15;
         int pageNumber = pageNum;
-
-        //Pull Data from DbView
-        List<Masterfilter> burials = new List<Masterfilter>();
-
-        int totalRecords = DbContext.Masterfilters.Count();
-        int totalPages = (int)Math.Ceiling((double)totalRecords / resultLength);
-
-        if (pageNumber <= totalPages)
-        {
-            burials = DbContext.Masterfilters
-                .OrderBy(x => x.Burialid)
-                .Skip((pageNumber - 1) * resultLength)
-                .Take(resultLength)
-                .ToList();
-        }
-        //Git?
-        //Pass Data to backend
+       
         var data = new BurialmainsViewModel
         {
             masterfilters = repo.masterfilters
                 .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
-                .OrderBy(a => a.Ageatdeath)
+                .OrderBy(x => x.Burialid)
                 .Skip((pageNum - 1) * resultLength)
                 .Take(resultLength),
 
-            ListBurials = burials,
-            //Pass to ViewModel
             PageInfo = new PageInfo
             {
                 TotalNumBurials =

@@ -18,14 +18,13 @@ namespace BYU_EGYPT_INTEX.Component
 
         public IViewComponentResult Invoke()
         {
-            ViewBag.SelectedType = RouteData?.Values["ageatdeath"];
 
-            var AgeAtDeath = repo.masterfilters
+            var ageatdeath = repo.masterfilters
                 .Select(x => x.Ageatdeath)
                 .Distinct()
                 .OrderBy(x => x);
 
-            return View(AgeAtDeath);
+            return View(ageatdeath);
         }
     }
 }

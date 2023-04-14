@@ -29,7 +29,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Masterfilter item in Model.ListBurials)
+        @foreach (Masterfilter item in Model.masterfilters)
          {
                 <tr key="@item.Id">
                     <td><a asp-controller="Home" asp-action="DisplayBurial" asp-route-ID="@item.Id">@item.Burialid</a></td>

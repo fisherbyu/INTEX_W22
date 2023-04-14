@@ -70,10 +70,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.MapControllerRoute(
-    name: "filter",
-    pattern: "{filter}/Page{pageNum}",
-    defaults: new { Controller = "Home", action = "BurialData" });
 app.MapRazorPages();
 
 app.Run();

@@ -13,7 +13,7 @@ namespace BYU_EGYPT_INTEX.Controllers;
 
 public class HomeController : Controller
 {
-    //Test
+    //Test GIT
     private readonly ILogger<HomeController> _logger;
     private egyptbyuContext DbContext { get; set; }
     private ApplicationDbContext AuthLinkContext { get; set; }

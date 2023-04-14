@@ -105,7 +105,7 @@ public class HomeController : Controller
         );
         var totalNumBurials = matchingRecords.Count();
 
-        var data = new BurialmainsViewModel
+        var data = new Models.ViewModels.BurialmainsViewModel
         {
             masterfilters = repo.masterfilters
                 .Where(a => a.Ageatdeath == searchParams.ageatdeath || searchParams.ageatdeath == null)
@@ -136,8 +136,58 @@ public class HomeController : Controller
 
     }
 
+    [HttpPost]
+    //Create Ability to Pull Filtered Data
+    public IActionResult PublishData(SearchParams searchParams)
+    {
+        string json = JsonConvert.SerializeObject(searchParams);
 
-   
+        var options = new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.Strict,
+            Expires = DateTimeOffset.Now.AddMinutes(60)
+        };
+
+        Response.Cookies.Append("SessionData", json, options);
+
+
+        // Define the search criteria
+        var searchCriteria = new
+        {
+            Column1 = searchParams.burialid,
+            Column2 = searchParams.depth,
+            Column3 = searchParams.ageatdeath,
+            Column4 = searchParams.sex,
+            Column5 = searchParams.haircolor,
+            Column6 = searchParams.estimatestature,
+            Column7 = searchParams.headdirection,
+            Column8 = searchParams.textilecolor,
+            Column9 = searchParams.textilestructure,
+            Column10 = searchParams.textilefunction
+        };
+
+        List<Models.Masterfilter> masterfilters = repo.masterfilters
+                .Where(a => a.Ageatdeath == searchParams.ageatdeath || searchParams.ageatdeath == null)
+                .Where(b => b.Burialid == searchParams.burialid || searchParams.burialid == null)
+                .Where(c => c.Depth == searchParams.depth || searchParams.depth == null)
+                .Where(d => d.Sex == searchParams.sex || searchParams.sex == null)
+                .Where(e => e.Haircolor == searchParams.haircolor || searchParams.haircolor == null)
+                .Where(f => f.Estimatestature == searchParams.estimatestature || searchParams.estimatestature == null)
+                .Where(g => g.Headdirection == searchParams.headdirection || searchParams.headdirection == null)
+                .Where(h => h.Color == searchParams.textilecolor || searchParams.textilecolor == null)
+                .Where(i => i.TextileStructure == searchParams.textilestructure || searchParams.textilestructure == null)
+                .Where(j => j.Textilefunction == searchParams.textilefunction || searchParams.textilefunction == null)
+                .OrderBy(x => x.Burialid).ToList();
+
+        //ViewBag.Params = searchParams;
+
+
+        return Json(masterfilters);
+
+    }
+
 
     public IActionResult DisplayBurial(long ID)
     {

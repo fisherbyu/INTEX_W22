@@ -11,7 +11,7 @@
 @model BurialmainsViewModel
 
 
-    <form method="post">
+<form id="searchForm" method="post">
         <div class="row form-text text-center">
 
             <div class="form-group m-1">
@@ -63,6 +63,7 @@
         <div class="text-center m-2">
             <button type="submit" class="btn btn-secondary">Search</button>
             <button onclick="resetView()" class="btn btn-secondary">Reset Fields</button>
+        <button id="altSubmit" type="submit" class="btn btn-secondary">Export Data</button>
         </div>
     </form>
 
@@ -120,4 +121,18 @@
   function submitForm() {
     document.getElementById("searchForm").submit();
   }
+
+
+    const form = document.getElementById("searchForm");
+    
+    const submitAlternate = document.getElementById("altSubmit");
+
+
+        // Attach event listener to alternate submit button
+        submitAlternate.addEventListener('click', (event) => {
+        // This will update the form's action attribute to the URL of the alternate method and submit the form
+        form.method = 'post';
+        form.action = '/Home/PublishData';
+        form.submit();
+    });
 </script>

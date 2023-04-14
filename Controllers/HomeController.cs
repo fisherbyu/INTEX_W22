@@ -22,6 +22,7 @@ public class HomeController : Controller
     private egyptbyuContext DbContext { get; set; }
     private ApplicationDbContext AuthLinkContext { get; set; }
     private IFilterRepository repo;
+    private List<BurialmainsFilteredData> filteredData;
 
     public HomeController(ILogger<HomeController> logger, egyptbyuContext temp_context, ApplicationDbContext tempLink, IFilterRepository temp)
     {
@@ -43,8 +44,7 @@ public class HomeController : Controller
 
 
     public IActionResult BurialData(string? burialid, string? depth, string? ageatdeath, string? sex, string? haircolor,
-        int? estimatestature, string? headdirection, string? textilecolor, string? textilestructure, string? textilefunction,
-        int pageNum=1)
+        int? estimatestature, string? headdirection, string? textilecolor, string? textilestructure, string? textilefunction, int pageNum=1)
     {
         int resultLength = 50;
 
@@ -78,23 +78,37 @@ public class HomeController : Controller
         );
         var totalNumBurials = matchingRecords.Count();
 
+        var masterfilters = repo.masterfilters
+            .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
+            .Where(b => b.Burialid == burialid || burialid == null)
+            .Where(c => c.Depth == depth || depth == null)
+            .Where(d => d.Sex == sex || sex == null)
+            .Where(e => e.Haircolor == haircolor || haircolor == null)
+            .Where(f => f.Estimatestature == estimatestature || estimatestature == null)
+            .Where(g => g.Headdirection == headdirection || headdirection == null)
+            .Where(h => h.Color == textilecolor || textilecolor == null)
+            .Where(i => i.TextileStructure == textilestructure || textilestructure == null)
+            .Where(j => j.Textilefunction == textilefunction || textilefunction == null)
+            .OrderBy(x => x.Burialid)
+            .Skip((pageNum - 1) * resultLength)
+            .Take(resultLength)
+            .Select(x => new BurialmainsFilteredData
+                {
+                    BurialId = x.Burialid,
+                    AgeAtDeath = x.Ageatdeath,
+                    Depth = x.Depth,
+                    Sex = x.Sex,
+                    HairColor = x.Haircolor,
+                    EstimateStature = x.Estimatestature,
+                    HeadDirection = x.Headdirection,
+                    TextileColor = x.Color,
+                    TextileStructure = x.TextileStructure,
+                    TextileFunction = x.Textilefunction
+                });
+
         var data = new BurialmainsViewModel
         {
-            masterfilters = repo.masterfilters
-                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
-                .Where(b => b.Burialid == burialid || burialid == null)
-                .Where(c => c.Depth == depth || depth == null)
-                .Where(d => d.Sex == sex || sex == null)
-                .Where(e => e.Haircolor == haircolor || haircolor == null)
-                .Where(f => f.Estimatestature == estimatestature || estimatestature == null)
-                .Where(g => g.Headdirection == headdirection || headdirection == null)
-                .Where(h => h.Color == textilecolor || textilecolor == null)
-                .Where(i => i.TextileStructure == textilestructure || textilestructure == null)
-                .Where(j => j.Textilefunction == textilefunction || textilefunction == null)
-                .OrderBy(x => x.Burialid)
-                .Skip((pageNum - 1) * resultLength)
-                .Take(resultLength),
-
+            FilteredData = filteredData,
             PageInfo = new PageInfo
             {
                 TotalNumBurials = totalNumBurials,
@@ -102,6 +116,7 @@ public class HomeController : Controller
                 CurrentPage = pageNum
             }
         };
+
         return View(data);
 
     }

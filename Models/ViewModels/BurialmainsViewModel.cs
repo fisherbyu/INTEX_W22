@@ -7,6 +7,7 @@ namespace BYU_EGYPT_INTEX.Models.ViewModels
 	{
 		public PageInfo? PageInfo { get; set; }
         public IQueryable<Masterfilter>? masterfilters { get; set; }
+		public List<BurialmainsFilteredData>? FilteredData { get; set; }
     }
 }
 

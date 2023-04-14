@@ -9,25 +9,138 @@
 
 @model BurialmainsViewModel
 
+    @*<form>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="burialId">Burial ID</label>
+                <input type="text" id="burialId" name="burialId">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="depth">Burial Depth</label>
+                <input type="text" id="depth" name="depth">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="textilecolor">Textile color:</label>
+            <input type="text" id="textilecolor" name="textilecolor">
+        </div>
+        <div class="form-group">
+            <label for="textilestructure">Textile Structure:</label>
+            <input type="text" id="textilestructure" name="textilestructure">
+        </div>
+        <div class="form-group">
+            <label for="textileFunction">Textile Function:</label>
+            <input type="text" id="textilefunction" name="textilefunction">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="sex">Sex:</label>
+                <select id="sex" name="sex">
+                    <option value="">Select Sex</option>
+                    <option value="M">Male</option>
+                    <option value="F">female</option>
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <vc:age-at-death></vc:age-at-death>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="haircolor">Hair Color:</label>
+                <select id="haircolor" name="haircolor">
+                    <option value="">Select Hair Color</option>
+                    <option value="K">Black</option>
+                    <option value="d">Blond</option>
+                    <option value="B">Brown</option>
+                    <option value="A">Auburn</option>
+                    <option value="R">Red</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group col-md-4">
+                <label for="headdirection">Head Direction:</label>
+                <select id="headdirection" name="headdirection">
+                    <option value=""></option>
+                    <option value="W">West</option>
+                    <option value="E">East</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-secondary">Search</button>
+        <button onclick="resetView()" class="btn btn-secondary">Reset Fields</button>
+    </form>*@
 
-<table class="table table-bordered table-striped">
-    <thead class="font-weight-bold">
-        <tr>
-            <td>Burial ID</td>
-            <td>Burial Depth</td>
-            <td>Age at Death</td>
-            <td>Sex</td>
-            <td>Hair Color</td>
-            <td>Estimated Stature</td>
-            <td>Head Direction</td>
-            <td>Textile color</td>
-            <td>Textile Structure</td>
-            <td>Textile Function</td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (Masterfilter item in Model.ListBurials)
-         {
+
+
+    <form>
+        <label for="burialId">Burial ID:</label>
+        <input type="text" id="burialId" name="burialId">
+
+        <label for="depth">Burial Depth:</label>
+        <input type="text" id="depth" name="depth">
+
+        <vc:age-at-death></vc:age-at-death>
+
+        <label for="sex">Sex:</label>
+        <select id="sex" name="sex">
+            <option value="">Select Sex</option>
+            <option value="M">Male</option>
+            <option value="F">female</option>
+        </select>
+        <label for="haircolor">Hair Color:</label>
+        <select id="haircolor" name="haircolor">
+            <option value="">Select Hair Color</option>
+            <option value="K">Black</option>
+            <option value="d">Blond</option>
+            <option value="B">Brown</option>
+            <option value="A">Auburn</option>
+            <option value="R">Red</option>
+        </select>
+        <label for="estimatedStature">Estimated Stature:</label>
+        <input type="text" id="estimatedStature" name="estimatedStature">
+
+        <label for="headdirection">Head Direction:</label>
+        <select id="headdirection" name="headdirection">
+            <option value=""></option>
+            <option value="W">West</option>
+            <option value="E">East</option>
+        </select>
+
+        <label for="textilecolor">Textile color:</label>
+        <input type="text" id="textilecolor" name="textilecolor">
+
+        <label for="textilestructure">Textile Structure:</label>
+        <input type="text" id="textilestructure" name="textilestructure">
+
+        <label for="textileFunction">Textile Function:</label>
+        <input type="text" id="textilefunction" name="textilefunction">
+
+        <button type="submit" class="btn btn-secondary">Search</button>
+        <button onclick="resetView()" class="btn btn-secondary">Reset Fields</button>
+    </form>
+
+    <div class="text-center m-3">
+
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead class="font-weight-bold">
+            <tr>
+                <td>Burial ID</td>
+                <td>Burial Depth</td>
+                <td>Age at Death</td>
+                <td>Sex</td>
+                <td>Hair Color</td>
+                <td>Estimated Stature</td>
+                <td>Head Direction</td>
+                <td>Textile color</td>
+                <td>Textile Structure</td>
+                <td>Textile Function</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Masterfilter item in Model.masterfilters)
+            {
                 <tr key="@item.Id">
                     <td><a asp-controller="Home" asp-action="DisplayBurial" asp-route-ID="@item.Id">@item.Burialid</a></td>
                     <td>@item.Depth</td>
@@ -40,13 +153,14 @@
                     <td>@item.TextileStructure</td>
                     <td>@item.Textilefunction</td>
                 </tr>
-         }
-    </tbody>
-</table>
-<div page-action="Index">
-    <div page-model="@Model.PageInfo" page-action="Index" page-classes-enabled="true"
-         page-class="btn" page-class-normal="btn-outline-dark"
-         page-class-selected="btn-primary" class="btn-group pull-right m-1">
+            }
+        </tbody>
+    </table>
+    <div page-action="BurialData">
+        <div page-model="@Model.PageInfo" page-action="BurialData" page-classes-enabled="true"
+             page-class="btn" page-class-normal="btn-outline-dark"
+             page-class-selected="btn-primary" class="btn-group pull-right m-1">
+        </div>
+
     </div>
 
-</div>

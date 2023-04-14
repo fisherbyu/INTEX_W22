@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BYU_EGYPT_INTEX.Models;
 using Microsoft.ML.OnnxRuntime;
+using static BYU_EGYPT_INTEX.Component.AgeAtDeathViewComponent;
+using NuGet.Protocol.Core.Types;
 using BYU_EGYPT_INTEX.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +21,8 @@ builder.Services.AddDbContext<egyptbyuContext>(options =>
     options.UseNpgsql(conectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+//connect repository
+builder.Services.AddScoped<IFilterRepository, EfFilterRepository>();
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
@@ -77,6 +81,7 @@ app.Use(async (context, next) =>
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapRazorPages();
 
 app.Run();

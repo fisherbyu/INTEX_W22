@@ -1,0 +1,16 @@
+﻿@{
+}
+
+@model IEnumerable<string>
+
+
+
+<label for="ageatdeath">Age at Death:</label>
+<select id="ageatdeath" name="ageatdeath">
+    
+    @foreach (object a in Model)
+    {
+        <option value="@a">@a</option>
+    }
+</select>
+

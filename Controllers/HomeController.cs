@@ -7,6 +7,10 @@ using static System.Reflection.Metadata.BlobBuilder;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Drawing;
+using BYU_EGYPT_INTEX.Component;
+using System.Drawing.Printing;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using BYU_EGYPT_INTEX.Areas.Identity.Data;
 
 namespace BYU_EGYPT_INTEX.Controllers;
@@ -17,8 +21,9 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private egyptbyuContext DbContext { get; set; }
     private ApplicationDbContext AuthLinkContext { get; set; }
-    
-    public HomeController(ILogger<HomeController> logger, egyptbyuContext temp_context, ApplicationDbContext tempLink)
+    private IFilterRepository repo;
+
+    public HomeController(ILogger<HomeController> logger, egyptbyuContext temp_context, ApplicationDbContext tempLink, IFilterRepository temp)
     {
         //Log Errors
         _logger = logger;
@@ -26,6 +31,8 @@ public class HomeController : Controller
         DbContext = temp_context;
         //Connect Auth Users
         AuthLinkContext = tempLink;
+        //get filters
+        repo = temp;
     }
 
     public IActionResult Index()
@@ -33,39 +40,66 @@ public class HomeController : Controller
         return View();
         //Test Git again
     }
-    
-    public IActionResult BurialData(string filter, int pageNum = 1)
+
+
+    public IActionResult BurialData(string? burialid, string? depth, string? ageatdeath, string? sex, string? haircolor,
+        int? estimatestature, string? headdirection, string? textilecolor, string? textilestructure, string? textilefunction,
+        int pageNum=1)
     {
-        int resultLength = 100;
-        int pageNumber = pageNum;
+        int resultLength = 50;
 
-        //Pull Data from DbView
-        List<Masterfilter> burials = new List<Masterfilter>();
-
-        int totalRecords = DbContext.Masterfilters.Count();
-        int totalPages = (int)Math.Ceiling((double)totalRecords / resultLength);
-
-        if (pageNumber <= totalPages)
+        // Define the search criteria
+        var searchCriteria = new
         {
-            burials = DbContext.Masterfilters
+            Column1 = burialid,
+            Column2 = depth,
+            Column3 = ageatdeath,
+            Column4 = sex,
+            Column5 = haircolor,
+            Column6 = estimatestature,
+            Column7 = headdirection,
+            Column8 = textilecolor,
+            Column9 = textilestructure,
+            Column10 = textilefunction
+        };
+
+        // Count the number of records that match the search criteria
+        var matchingRecords = repo.masterfilters.Where(data =>
+            (searchCriteria.Column1 == null || data.Burialid == searchCriteria.Column1) &&
+            (searchCriteria.Column2 == null || data.Depth == searchCriteria.Column2) &&
+            (searchCriteria.Column3 == null || data.Ageatdeath == searchCriteria.Column3) &&
+            (searchCriteria.Column4 == null || data.Sex == searchCriteria.Column4) &&
+            (searchCriteria.Column5 == null || data.Haircolor == searchCriteria.Column5) &&
+            (searchCriteria.Column6 == null || data.Estimatestature == searchCriteria.Column6) &&
+            (searchCriteria.Column7 == null || data.Headdirection == searchCriteria.Column7) &&
+            (searchCriteria.Column8 == null || data.Color == searchCriteria.Column8) &&
+            (searchCriteria.Column9 == null || data.TextileStructure == searchCriteria.Column9) &&
+            (searchCriteria.Column10 == null || data.Textilefunction == searchCriteria.Column10)
+        );
+        var totalNumBurials = matchingRecords.Count();
+
+        var data = new BurialmainsViewModel
+        {
+            masterfilters = repo.masterfilters
+                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
+                .Where(b => b.Burialid == burialid || burialid == null)
+                .Where(c => c.Depth == depth || depth == null)
+                .Where(d => d.Sex == sex || sex == null)
+                .Where(e => e.Haircolor == haircolor || haircolor == null)
+                .Where(f => f.Estimatestature == estimatestature || estimatestature == null)
+                .Where(g => g.Headdirection == headdirection || headdirection == null)
+                .Where(h => h.Color == textilecolor || textilecolor == null)
+                .Where(i => i.TextileStructure == textilestructure || textilestructure == null)
+                .Where(j => j.Textilefunction == textilefunction || textilefunction == null)
                 .OrderBy(x => x.Burialid)
-                .Skip((pageNumber - 1) * resultLength)
-                .Take(resultLength)
-                .ToList();
-        }
-        //Git?
-        //Pass Data to backend
-        BurialmainsViewModel data = new BurialmainsViewModel
-        {
-            //Books to view on this page
-            ListBurials = burials,
-            //Pass to ViewModel
+                .Skip((pageNum - 1) * resultLength)
+                .Take(resultLength),
+
             PageInfo = new PageInfo
             {
-
-                TotalNumBurials = totalRecords,
+                TotalNumBurials = totalNumBurials,
                 BurialsPerPage = resultLength,
-                CurrentPage = pageNumber
+                CurrentPage = pageNum
             }
         };
         return View(data);

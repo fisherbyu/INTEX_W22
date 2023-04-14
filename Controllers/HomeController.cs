@@ -48,6 +48,16 @@ public class HomeController : Controller
         {
             masterfilters = repo.masterfilters
                 .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
+                .Where(b => b.Burialid ==  || ageatdeath == null)
+                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
+                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
+                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
+                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
+                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
+                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
+                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
+                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
+                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
                 .OrderBy(x => x.Burialid)
                 .Skip((pageNum - 1) * resultLength)
                 .Take(resultLength),

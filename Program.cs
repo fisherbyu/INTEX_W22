@@ -23,7 +23,7 @@ builder.Services.AddDbContext<egyptbyuContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 //connect repository
-builder.Services.AddScoped<IAgeAtDeathRepository, EfAgeAtDeathRepository>();
+builder.Services.AddScoped<IFilterRepository, EfFilterRepository>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {

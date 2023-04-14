@@ -1,11 +1,11 @@
 ﻿using System;
 namespace BYU_EGYPT_INTEX.Models
 {
-    public class EfAgeAtDeathRepository : IAgeAtDeathRepository 
+    public class EfFilterRepository : IFilterRepository 
     {
         private egyptbyuContext context { get; set; }
 
-        public EfAgeAtDeathRepository(egyptbyuContext temp)
+        public EfFilterRepository(egyptbyuContext temp)
         {
             context = temp;
         }

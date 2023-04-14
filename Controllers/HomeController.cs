@@ -20,9 +20,9 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private egyptbyuContext DbContext { get; set; }
     private ApplicationDbContext AuthLinkContext { get; set; }
-    private IAgeAtDeathRepository repo;
+    private IFilterRepository repo;
 
-    public HomeController(ILogger<HomeController> logger, egyptbyuContext temp_context, ApplicationDbContext tempLink, IAgeAtDeathRepository temp)
+    public HomeController(ILogger<HomeController> logger, egyptbyuContext temp_context, ApplicationDbContext tempLink, IFilterRepository temp)
     {
         //Log Errors
         _logger = logger;
@@ -43,10 +43,9 @@ public class HomeController : Controller
 
     public IActionResult BurialData(string? burialid, string? depth, string? ageatdeath, string? sex, string? haircolor,
         int? estimatestature, string? headdirection, string? textilecolor, string? textilestructure, string? textilefunction,
-        int pageNum = 1)
+        int pageNum=1)
     {
         int resultLength = 50;
-        int pageNumber = pageNum;
 
         // Define the search criteria
         var searchCriteria = new
@@ -68,13 +67,13 @@ public class HomeController : Controller
             (searchCriteria.Column1 == null || data.Burialid == searchCriteria.Column1) &&
             (searchCriteria.Column2 == null || data.Depth == searchCriteria.Column2) &&
             (searchCriteria.Column3 == null || data.Ageatdeath == searchCriteria.Column3) &&
-            (searchCriteria.Column3 == null || data.Sex == searchCriteria.Column4) &&
-            (searchCriteria.Column3 == null || data.Haircolor == searchCriteria.Column5) &&
-            (searchCriteria.Column3 == null || data.Estimatestature == searchCriteria.Column6) &&
-            (searchCriteria.Column3 == null || data.Headdirection == searchCriteria.Column7) &&
-            (searchCriteria.Column3 == null || data.Color == searchCriteria.Column8) &&
-            (searchCriteria.Column3 == null || data.TextileStructure == searchCriteria.Column9) &&
-            (searchCriteria.Column3 == null || data.Textilefunction == searchCriteria.Column10)
+            (searchCriteria.Column4 == null || data.Sex == searchCriteria.Column4) &&
+            (searchCriteria.Column5 == null || data.Haircolor == searchCriteria.Column5) &&
+            (searchCriteria.Column6 == null || data.Estimatestature == searchCriteria.Column6) &&
+            (searchCriteria.Column7 == null || data.Headdirection == searchCriteria.Column7) &&
+            (searchCriteria.Column8 == null || data.Color == searchCriteria.Column8) &&
+            (searchCriteria.Column9 == null || data.TextileStructure == searchCriteria.Column9) &&
+            (searchCriteria.Column10 == null || data.Textilefunction == searchCriteria.Column10)
         );
         var totalNumBurials = matchingRecords.Count();
 
@@ -98,11 +97,8 @@ public class HomeController : Controller
             PageInfo = new PageInfo
             {
                 TotalNumBurials = totalNumBurials,
-                //(ageatdeath == null
-                //? repo.masterfilters.Count()
-                //: repo.masterfilters.Where(data => data.Ageatdeath == ageatdeath).Count()),
                 BurialsPerPage = resultLength,
-                CurrentPage = pageNumber
+                CurrentPage = pageNum
             }
         };
         return View(data);

@@ -9,9 +9,9 @@ namespace BYU_EGYPT_INTEX.Component
 {
     public class AgeAtDeathViewComponent : ViewComponent
     {
-        private IAgeAtDeathRepository repo { get; set; }
+        private IFilterRepository repo { get; set; }
 
-        public AgeAtDeathViewComponent(IAgeAtDeathRepository temp)
+        public AgeAtDeathViewComponent(IFilterRepository temp)
         {
             repo = temp;
         }

@@ -112,7 +112,7 @@ public class HomeController : Controller
 
         
         //Assemble Textiles
-        List<Textile> textiles = (from b in DbContext.Burialmains
+        List<BYU_EGYPT_INTEX.Models.Textile> textiles = (from b in DbContext.Burialmains
                                     join bt in DbContext.BurialmainTextiles on b.Id equals bt.MainBurialmainid
                                     join t in DbContext.Textiles on bt.MainTextileid equals t.Id
                                     where b.Id == ID
@@ -120,7 +120,7 @@ public class HomeController : Controller
 
         //Iterate and grab data for each Textile, add to empty List
         List<TextileComposite> textileComposites = new List<TextileComposite>();
-        foreach (Textile Index in textiles)
+        foreach (BYU_EGYPT_INTEX.Models.Textile Index in textiles)
         {
             
             List<Models.Color> colors = (from c in DbContext.Colors
@@ -128,13 +128,13 @@ public class HomeController : Controller
                                         where ct.MainTextileid == Index.Id
                                         select c).ToList();
             //Grab Functions 
-            List<Textilefunction> functions = (from tf in DbContext.Textilefunctions
+            List<Models.Textilefunction> functions = (from tf in DbContext.Textilefunctions
                                    join tft in DbContext.TextilefunctionTextiles on tf.Id equals tft.MainTextilefunctionid
                                    where tft.MainTextileid == Index.Id
                                    select tf).ToList();
 
             //Grab Structures
-            List<Structure> structures = (from s in DbContext.Structures
+            List<Models.Structure> structures = (from s in DbContext.Structures
                                                join st in DbContext.StructureTextiles on s.Id equals st.MainStructureid
                                                where st.MainTextileid == Index.Id
                                                select s).ToList();

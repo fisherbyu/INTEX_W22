@@ -24,15 +24,15 @@ namespace BYU_EGYPT_INTEX.Infrastructure
 
         [ViewContext]
         [HtmlAttributeNotBound]
-        public ViewContext vc { get; set; }
+        public ViewContext? vc { get; set; }
 
-        public PageInfo PageModel { get; set; }
-        public string PageAction;
+        public PageInfo? PageModel { get; set; }
+        public string? PageAction;
 
         public bool PageClassesEnabled { get; set; } = false;
-        public string PageClass { get; set; }
-        public string PageClassNormal { get; set; }
-        public string PageClassSelected { get; set; }
+        public string? PageClass { get; set; }
+        public string? PageClassNormal { get; set; }
+        public string? PageClassSelected { get; set; }
 
         public override void Process(TagHelperContext thc, TagHelperOutput tho)
         {

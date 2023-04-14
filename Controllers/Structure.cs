@@ -10,88 +10,88 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BYU_EGYPT_INTEX.Controllers
 {
-    [Authorize(Roles="Administrator, User")]
-    public class BurialmainController : Controller
+    [Authorize(Roles = "Administrator, User")]
+    public class Structure : Controller
     {
         private readonly egyptbyuContext _context;
 
-        public BurialmainController(egyptbyuContext context)
+        public Structure(egyptbyuContext context)
         {
             _context = context;
         }
 
-        // GET: Burialmain
+        // GET: Structure
         public async Task<IActionResult> Index()
         {
-              return _context.Burialmains != null ? 
-                          View(await _context.Burialmains.ToListAsync()) :
-                          Problem("Entity set 'egyptbyuContext.Burialmains'  is null.");
+              return _context.Structures != null ? 
+                          View(await _context.Structures.ToListAsync()) :
+                          Problem("Entity set 'egyptbyuContext.Structures'  is null.");
         }
 
-        // GET: Burialmain/Details/5
+        // GET: Structure/Details/5
         public async Task<IActionResult> Details(long? id)
         {
-            if (id == null || _context.Burialmains == null)
+            if (id == null || _context.Structures == null)
             {
                 return NotFound();
             }
 
-            var burialmain = await _context.Burialmains
+            var structure = await _context.Structures
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (burialmain == null)
+            if (structure == null)
             {
                 return NotFound();
             }
 
-            return View(burialmain);
+            return View(structure);
         }
 
-        // GET: Burialmain/Create
+        // GET: Structure/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Burialmain/Create
+        // POST: Structure/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Squarenorthsouth,Headdirection,Sex,Northsouth,Depth,Eastwest,Adultsubadult,Facebundles,Southtohead,Preservation,Fieldbookpage,Squareeastwest,Goods,Text,Wrapping,Haircolor,Westtohead,Samplescollected,Area,Burialid,Length,Burialnumber,Dataexpertinitials,Westtofeet,Ageatdeath,Southtofeet,Excavationrecorder,Photos,Hair,Burialmaterials,Dateofexcavation,Fieldbookexcavationyear,Clusternumber,Shaftnumber")] Burialmain burialmain)
+        public async Task<IActionResult> Create([Bind("Id,Value,Structureid")] Structure structure)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(burialmain);
+                _context.Add(structure);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(burialmain);
+            return View(structure);
         }
 
-        // GET: Burialmain/Edit/5
+        // GET: Structure/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
-            if (id == null || _context.Burialmains == null)
+            if (id == null || _context.Structures == null)
             {
                 return NotFound();
             }
 
-            var burialmain = await _context.Burialmains.FindAsync(id);
-            if (burialmain == null)
+            var structure = await _context.Structures.FindAsync(id);
+            if (structure == null)
             {
                 return NotFound();
             }
-            return View(burialmain);
+            return View(structure);
         }
 
-        // POST: Burialmain/Edit/5
+        // POST: Structure/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Squarenorthsouth,Headdirection,Sex,Northsouth,Depth,Eastwest,Adultsubadult,Facebundles,Southtohead,Preservation,Fieldbookpage,Squareeastwest,Goods,Text,Wrapping,Haircolor,Westtohead,Samplescollected,Area,Burialid,Length,Burialnumber,Dataexpertinitials,Westtofeet,Ageatdeath,Southtofeet,Excavationrecorder,Photos,Hair,Burialmaterials,Dateofexcavation,Fieldbookexcavationyear,Clusternumber,Shaftnumber")] Burialmain burialmain)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Value,Structureid")] Models.Structure structure)
         {
-            if (id != burialmain.Id)
+            if (id != structure.Id)
             {
                 return NotFound();
             }
@@ -100,12 +100,12 @@ namespace BYU_EGYPT_INTEX.Controllers
             {
                 try
                 {
-                    _context.Update(burialmain);
+                    _context.Update(structure);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BurialmainExists(burialmain.Id))
+                    if (!StructureExists(structure.Id))
                     {
                         return NotFound();
                     }
@@ -116,49 +116,49 @@ namespace BYU_EGYPT_INTEX.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(burialmain);
+            return View(structure);
         }
 
-        // GET: Burialmain/Delete/5
+        // GET: Structure/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
-            if (id == null || _context.Burialmains == null)
+            if (id == null || _context.Structures == null)
             {
                 return NotFound();
             }
 
-            var burialmain = await _context.Burialmains
+            var structure = await _context.Structures
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (burialmain == null)
+            if (structure == null)
             {
                 return NotFound();
             }
 
-            return View(burialmain);
+            return View(structure);
         }
 
-        // POST: Burialmain/Delete/5
+        // POST: Structure/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            if (_context.Burialmains == null)
+            if (_context.Structures == null)
             {
-                return Problem("Entity set 'egyptbyuContext.Burialmains'  is null.");
+                return Problem("Entity set 'egyptbyuContext.Structures'  is null.");
             }
-            var burialmain = await _context.Burialmains.FindAsync(id);
-            if (burialmain != null)
+            var structure = await _context.Structures.FindAsync(id);
+            if (structure != null)
             {
-                _context.Burialmains.Remove(burialmain);
+                _context.Structures.Remove(structure);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BurialmainExists(long id)
+        private bool StructureExists(long id)
         {
-          return (_context.Burialmains?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Structures?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

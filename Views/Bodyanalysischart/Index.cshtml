@@ -1,0 +1,191 @@
+@model IEnumerable<BYU_EGYPT_INTEX.Models.Bodyanalysischart>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Femur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Humerusheaddiameter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Squamossuture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CariesPeriodontalDisease)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedicalIpRamus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Perservationindex)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gonion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Humeruslength)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Femurlength)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lambdoidsuture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ventralarc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tootheruptionageestimation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nuchalcrest)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estimatestature)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Notes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Osteophytosis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subpubicangle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Robust)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Femurheaddiameter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sciaticnotch)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Supraorbitalridges)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orbitedge)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Toothattrition)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sphenooccipitalsynchondrosis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Parietalblossing)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Observations)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Humerus)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Femur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Humerusheaddiameter)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Squamossuture)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CariesPeriodontalDisease)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MedicalIpRamus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Perservationindex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gonion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Humeruslength)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Femurlength)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lambdoidsuture)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ventralarc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tootheruptionageestimation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nuchalcrest)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estimatestature)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Osteophytosis)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subpubicangle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Robust)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Femurheaddiameter)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sciaticnotch)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Supraorbitalridges)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Orbitedge)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Toothattrition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sphenooccipitalsynchondrosis)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Parietalblossing)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Observations)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Humerus)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

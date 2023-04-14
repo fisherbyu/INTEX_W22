@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using BYU_EGYPT_INTEX.Models;
 using Microsoft.ML.OnnxRuntime;
 using BYU_EGYPT_INTEX.Areas.Identity.Data;
+using BYU_EGYPT_INTEX.Core.Repo;
+using BYU_EGYPT_INTEX.Repo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +35,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     .AddRoles<IdentityRole>() //Add role service
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+AddScoped();
 
 var app = builder.Build();
 
@@ -68,3 +72,10 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 app.Run();
+
+void AddScoped()
+{
+    builder.Services.AddScoped<IUserRepo, UserRepo>();
+    builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+    builder.Services.AddScoped<IRoleRepo, RoleRepo>();
+}

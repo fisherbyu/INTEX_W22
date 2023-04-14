@@ -1,0 +1,23 @@
+﻿@model BYU_EGYPT_INTEX.Models.ViewModels.DeleteUserViewModel
+
+<h2>Confirm Deletion</h2>
+
+<div>
+    <div>
+
+        @using (Html.BeginForm("OnPostDelete", "User"))
+        {
+            @Html.HiddenFor(h => @Model.User.Id);
+            <p>Are you sure you want to delete @Model.User.UserName?</p>
+
+            @for (int i = 0; i < @Model.Roles.Count(); i++)
+            {
+                @Html.HiddenFor(h => @Model.Roles[i].Text)
+            }
+
+            <hr class="my-4">
+            <a asp-controller="User" asp-action="Index" class="w-100 btn btn-primary btn-lg">Cancel</a>
+            <button class="w-100 btn btn-danger btn-lg" type="submit">Delete</button>
+        }
+    </div>
+</div>

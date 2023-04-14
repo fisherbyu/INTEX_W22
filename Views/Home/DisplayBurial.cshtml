@@ -1,4 +1,6 @@
 ﻿@model DisplayBurialViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 <h1>@Model.BurialId</h1>
 
 
@@ -59,6 +61,13 @@
         </tr>
     </tbody>
 </table>
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <a type="button" class="btn btn-primary" asp-controller="Burialmain" asp-action="Edit" asp-route-id="@Model.burial.Id">Edit Burial</a>
+    <a type="button" class="btn btn-primary btn-danger" asp-controller="Burialmain" asp-action="Delete" asp-route-id="@Model.burial.Id">Delete Burial</a>
+}
 
 @*Textiles:*@
 

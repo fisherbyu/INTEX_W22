@@ -7,7 +7,7 @@
         background-color: #f2f2f2;
         border-radius: 10px;
         padding: 20px;
-        width: 60%;
+        width: 50%;
         margin: 0 auto;
         display: flex;
         flex-direction: column;
@@ -20,7 +20,7 @@
         align-items: center;
         justify-content: center;
         width: 100%;
-        max-width: 500px;
+        max-width: 400px;
         text-align: center;
         font-weight: bold;
     }
@@ -29,7 +29,7 @@
     select {
         margin: 10px 0;
         width: 100%;
-        max-width: 500px;
+        max-width: 400px;
         padding: 5px;
         border: none;
         border-radius: 5px;
@@ -49,7 +49,8 @@
     }
 </style>
 
-<h1>Supervised Model 2</h1>
+<br />
+<h1 style="text-align:center">Supervised Model 2</h1>
 
 <form>
     <div class="row">
@@ -90,14 +91,15 @@
             </select>
         </div>
     </div>
-
+    <div class="row">
     <label for="samples-collected">Samples Collected:</label>
     <select id="samples-collected" name="samples-collected">
         <option value="-">-</option>
         <option value="true">True</option>
         <option value="false">False</option>
     </select>
-
+    </div>
+    <div class="row">
     <label for="age-at-death">Age at Death:</label>
     <select id="age-at-death" name="age-at-death">
         <option value="-">-</option>
@@ -106,18 +108,18 @@
         <option value="I">I</option>
         <option value="N">N</option>
     </select>
-
+    </div>
     <button id="custom-button">Submit</button>
+    <h4>Prediction:</h4>
+    <h4 id="predictionResult"></h4>
 </form>
 
-<h4>Prediction:</h4>
-<h4 id="predictionResult"></h4>
+
 
 <script>
     const customButton = document.getElementById('custom-button');
     customButton.addEventListener('click', function (event) {
         event.preventDefault();
-        // Add your custom action here
         const inputData = {
             "depth": 2.5,
             "headdirection_": 0,
@@ -294,7 +296,6 @@
                     console.log(prediction);
                     // Update the h4 tag with the prediction result
                     document.querySelector('#predictionResult').textContent = String(prediction.predictedValue);
-                    console.log("it got here at least");
                 })
                 .catch(error => {
                     alert("Something went wrong...");

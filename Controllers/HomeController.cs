@@ -75,27 +75,88 @@ public class HomeController : Controller
     public IActionResult DisplayBurial(long ID)
     {
         Burialmain burialmain = DbContext.Burialmains.Single(x => x.Id == ID);
-        //Burialmain burialmain = (from b in DbContext.Burialmains
-        //                         where b.Id == ID
-        //                         select b).SingleOrDefault() ?? new Burialmain();
+
+        
+        //Assemble Textiles
+        List<Textile> textiles = (from b in DbContext.Burialmains
+                                    join bt in DbContext.BurialmainTextiles on b.Id equals bt.MainBurialmainid
+                                    join t in DbContext.Textiles on bt.MainTextileid equals t.Id
+                                    where b.Id == ID
+                                    select t).ToList();
+
+        //Iterate and grab data for each Textile, add to empty List
+        List<TextileComposite> textileComposites = new List<TextileComposite>();
+        foreach (Textile Index in textiles)
+        {
+            
+            List<Models.Color> colors = (from c in DbContext.Colors
+                                        join ct in DbContext.ColorTextiles on c.Id equals ct.MainColorid
+                                        where ct.MainTextileid == Index.Id
+                                        select c).ToList();
+            //Grab Functions 
+            List<Textilefunction> functions = (from tf in DbContext.Textilefunctions
+                                   join tft in DbContext.TextilefunctionTextiles on tf.Id equals tft.MainTextilefunctionid
+                                   where tft.MainTextileid == Index.Id
+                                   select tf).ToList();
+
+            //Grab Structures
+            List<Structure> structures = (from s in DbContext.Structures
+                                               join st in DbContext.StructureTextiles on s.Id equals st.MainStructureid
+                                               where st.MainTextileid == Index.Id
+                                               select s).ToList();
+
+            List<Analysis> analyses = (from a in DbContext.Analyses
+                                       join at in DbContext.AnalysisTextiles on a.Id equals at.MainAnalysisid
+                                       where at.MainTextileid == Index.Id
+                                       select a).ToList();
+
+            List<Decoration> decorations = (from d in DbContext.Decorations
+                                            join dt in DbContext.DecorationTextiles on d.Id equals dt.MainDecorationid
+                                            where dt.MainTextileid == Index.Id
+                                            select d).ToList();
+
+            List<Dimension> dimensions = (from d in DbContext.Dimensions
+                                          join dt in DbContext.DimensionTextiles on d.Id equals dt.MainDimensionid
+                                          where dt.MainTextileid == Index.Id
+                                          select d).ToList();
+
+            List<Yarnmanipulation> yarnmanipulations = (from y in DbContext.Yarnmanipulations
+                                                        join yt in DbContext.YarnmanipulationTextiles on y.Id equals yt.MainYarnmanipulationid
+                                                        where yt.MainTextileid == Index.Id
+                                                        select y).ToList();
 
 
-        List<Models.Color> colors = (from c in DbContext.Colors
-                                     join ct in DbContext.ColorTextiles on c.Id equals ct.MainColorid
-                                     join t in DbContext.Textiles on ct.MainTextileid equals t.Id
-                                     join bt in DbContext.BurialmainTextiles on t.Id equals bt.MainTextileid into bt_temp
-                                     from bt in bt_temp.DefaultIfEmpty()
-                                     join b in DbContext.Burialmains on bt.MainBurialmainid equals b.Id into b_temp
-                                     from b in b_temp.DefaultIfEmpty()
-                                     where b.Id == ID
-                                     select c ?? new Models.Color()).Distinct().ToList();
+            List<Photodatum> photodata = (from p in DbContext.Photodata
+                                          join pt in DbContext.PhotodataTextiles on p.Id equals pt.MainPhotodataid
+                                          where pt.MainTextileid == Index.Id
+                                          select p).ToList();
 
-        List<Textile> textiles = (from bt in DbContext.BurialmainTextiles
-                                  join t_join in DbContext.Textiles on bt.MainTextileid equals t_join.Id into t_temp
-                                  from t in t_temp.DefaultIfEmpty()
-                                  where bt.MainBurialmainid == ID
-                                  select t ?? new Textile()).ToList();
-        BurialComposite data = new BurialComposite(burialmain, textiles, colors);
+
+
+
+
+
+            TextileComposite composite = new TextileComposite(Index, colors, functions, structures, analyses, decorations, dimensions, yarnmanipulations, photodata);
+
+            textileComposites.Add(composite);
+        }
+
+        //Artifacts
+        List<Artifactkomaushimregister> artifacts = (from b in DbContext.Burialmains
+                                                     join ba in DbContext.ArtifactkomaushimregisterBurialmains on b.Id equals ba.MainArtifactkomaushimregisterid
+                                                     join a in DbContext.Artifactkomaushimregisters on ba.MainBurialmainid equals a.Id
+                                                     where b.Id == ID
+
+                                                     select a).ToList();
+
+
+        DisplayBurialViewModel data = new DisplayBurialViewModel(burialmain)
+        {
+            burial = burialmain,
+            textiles = textileComposites,
+            artifacts = artifacts
+        };
+
         return View(data);
     }
     public IActionResult Supervised()

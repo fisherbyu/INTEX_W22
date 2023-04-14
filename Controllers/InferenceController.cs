@@ -25,7 +25,7 @@ namespace BYU_EGYPT_INTEX.Controllers
 
         public InferenceController()
         {
-            _session = new InferenceSession("Models/AnalyticsModels/textilesupermodelfinal.onnx");
+            _session = new InferenceSession("wwwroot/onnxStuff/textilesupermodelfinal.onnx");
         }
 
 
@@ -42,6 +42,7 @@ namespace BYU_EGYPT_INTEX.Controllers
             result.Dispose();
             return Ok(prediction);
         }
+    }
         [ApiController]
         [Route("/score2")]
         public class InferenceController2 : ControllerBase
@@ -50,7 +51,7 @@ namespace BYU_EGYPT_INTEX.Controllers
 
             public InferenceController2()
             {
-                _session = new InferenceSession("Models/AnalyticsModels/bmsupermodel2final.onnx");
+                _session = new InferenceSession("wwwroot/onnxStuff/bmsupermodel2final.onnx");
             }
 
             [HttpPost]
@@ -67,5 +68,5 @@ namespace BYU_EGYPT_INTEX.Controllers
                 return Ok(prediction);
             }
         }
-    }
+    
 }

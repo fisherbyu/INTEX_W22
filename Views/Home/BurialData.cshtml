@@ -9,8 +9,49 @@
 
 @model BurialmainsViewModel
 
+    <form method="post">
+        <label for="burialId">Burial ID:</label>
+        <input type="text" id="burialId" name="burialId">
+
+        <label for="depth">Burial Depth:</label>
+        <input type="text" id="depth" name="depth">
+
+        <vc:age-at-death></vc:age-at-death>
+
+        <label for="sex">Sex:</label>
+        <select id="sex" name="sex">
+            <option value="">Select sex</option>
+            <option value="M">Male</option>
+            <option value="F">female</option>
+        </select><br />
+
+        <label for="hairColor">Hair Color:</label>
+        <input type="text" id="hairColor" name="hairColor">
+
+        <label for="estimatedStature">Estimated Stature:</label>
+        <input type="text" id="estimatedStature" name="estimatedStature">
+
+        <label for="headdirection">Head Direction:</label>
+        <select id="headdirection" name="headdirection">
+            <option value=""></option>
+            <option value="W">West</option>
+            <option value="E">East</option>
+        </select><br />
+
+        <label for="textilecolor">Textile color:</label>
+        <input type="text" id="textilecolor" name="textilecolor"><br>
+
+        <label for="textilestructure">Textile Structure:</label>
+        <input type="text" id="textilestructure" name="textilestructure"><br>
+
+        <label for="textileFunction">Textile Function:</label>
+        <input type="text" id="textilefunction" name="textilefunction"><br>
+
+        <input type="submit" value="Search">
+    </form>
+
 <div class="text-center m-3">
-    <vc:age-at-death></vc:age-at-death>
+    
 </div>
 
 <table class="table table-bordered table-striped">

@@ -38,8 +38,34 @@ public class HomeController : Controller
         return View();
         //Test Git again
     }
-    
-    public IActionResult BurialData(string ageatdeath, string haircolor, int pageNum = 1)
+
+    [HttpGet]
+    public IActionResult BurialData(int pageNum = 1)
+    {
+        int resultLength = 15;
+        int pageNumber = pageNum;
+
+        var data = new BurialmainsViewModel
+        {
+            masterfilters = repo.masterfilters
+                .OrderBy(x => x.Burialid)
+                .Skip((pageNum - 1) * resultLength)
+                .Take(resultLength),
+
+            PageInfo = new PageInfo
+            {
+                TotalNumBurials = repo.masterfilters.Count(),
+                BurialsPerPage = resultLength,
+                CurrentPage = pageNum
+            }
+        };
+        return View(data);
+     }
+
+    [HttpPost]
+    public IActionResult BurialData(string? burialid, string? depth, string? ageatdeath, string? sex, string? haircolor,
+        int? estimatestature, string? headdirection, string? textilecolor, string? textilestructure, string? textilefunction,
+        int pageNum = 1)
     {
         int resultLength = 15;
         int pageNumber = pageNum;
@@ -48,16 +74,15 @@ public class HomeController : Controller
         {
             masterfilters = repo.masterfilters
                 .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
-                .Where(b => b.Burialid ==  || ageatdeath == null)
-                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
-                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
-                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
-                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
-                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
-                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
-                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
-                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
-                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
+                .Where(b => b.Burialid == burialid || burialid == null)
+                .Where(c => c.Depth == depth || depth == null)
+                .Where(d => d.Sex == sex || sex == null)
+                .Where(e => e.Haircolor == haircolor || haircolor == null)
+                .Where(f => f.Estimatestature == estimatestature || estimatestature == null)
+                .Where(g => g.Headdirection == headdirection || headdirection == null)
+                .Where(h => h.Color == textilecolor || textilecolor == null)
+                .Where(i => i.TextileStructure == textilestructure || textilestructure == null)
+                .Where(j => j.Textilefunction == textilefunction || textilefunction == null)
                 .OrderBy(x => x.Burialid)
                 .Skip((pageNum - 1) * resultLength)
                 .Take(resultLength),

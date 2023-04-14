@@ -10,88 +10,88 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BYU_EGYPT_INTEX.Controllers
 {
-    [Authorize(Roles="Administrator, User")]
-    public class BurialmainController : Controller
+    [Authorize(Roles = "Administrator, User")]
+    public class Textile : Controller
     {
         private readonly egyptbyuContext _context;
 
-        public BurialmainController(egyptbyuContext context)
+        public Textile(egyptbyuContext context)
         {
             _context = context;
         }
 
-        // GET: Burialmain
+        // GET: Textile
         public async Task<IActionResult> Index()
         {
-              return _context.Burialmains != null ? 
-                          View(await _context.Burialmains.ToListAsync()) :
-                          Problem("Entity set 'egyptbyuContext.Burialmains'  is null.");
+              return _context.Textiles != null ? 
+                          View(await _context.Textiles.ToListAsync()) :
+                          Problem("Entity set 'egyptbyuContext.Textiles'  is null.");
         }
 
-        // GET: Burialmain/Details/5
+        // GET: Textile/Details/5
         public async Task<IActionResult> Details(long? id)
         {
-            if (id == null || _context.Burialmains == null)
+            if (id == null || _context.Textiles == null)
             {
                 return NotFound();
             }
 
-            var burialmain = await _context.Burialmains
+            var textile = await _context.Textiles
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (burialmain == null)
+            if (textile == null)
             {
                 return NotFound();
             }
 
-            return View(burialmain);
+            return View(textile);
         }
 
-        // GET: Burialmain/Create
+        // GET: Textile/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Burialmain/Create
+        // POST: Textile/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Squarenorthsouth,Headdirection,Sex,Northsouth,Depth,Eastwest,Adultsubadult,Facebundles,Southtohead,Preservation,Fieldbookpage,Squareeastwest,Goods,Text,Wrapping,Haircolor,Westtohead,Samplescollected,Area,Burialid,Length,Burialnumber,Dataexpertinitials,Westtofeet,Ageatdeath,Southtofeet,Excavationrecorder,Photos,Hair,Burialmaterials,Dateofexcavation,Fieldbookexcavationyear,Clusternumber,Shaftnumber")] Burialmain burialmain)
+        public async Task<IActionResult> Create([Bind("Id,Locale,Textileid,Description,Burialnumber,Estimatedperiod,Sampledate,Photographeddate,Direction")] Textile textile)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(burialmain);
+                _context.Add(textile);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(burialmain);
+            return View(textile);
         }
 
-        // GET: Burialmain/Edit/5
+        // GET: Textile/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
-            if (id == null || _context.Burialmains == null)
+            if (id == null || _context.Textiles == null)
             {
                 return NotFound();
             }
 
-            var burialmain = await _context.Burialmains.FindAsync(id);
-            if (burialmain == null)
+            var textile = await _context.Textiles.FindAsync(id);
+            if (textile == null)
             {
                 return NotFound();
             }
-            return View(burialmain);
+            return View(textile);
         }
 
-        // POST: Burialmain/Edit/5
+        // POST: Textile/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Squarenorthsouth,Headdirection,Sex,Northsouth,Depth,Eastwest,Adultsubadult,Facebundles,Southtohead,Preservation,Fieldbookpage,Squareeastwest,Goods,Text,Wrapping,Haircolor,Westtohead,Samplescollected,Area,Burialid,Length,Burialnumber,Dataexpertinitials,Westtofeet,Ageatdeath,Southtofeet,Excavationrecorder,Photos,Hair,Burialmaterials,Dateofexcavation,Fieldbookexcavationyear,Clusternumber,Shaftnumber")] Burialmain burialmain)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Locale,Textileid,Description,Burialnumber,Estimatedperiod,Sampledate,Photographeddate,Direction")] BYU_EGYPT_INTEX.Models.Textile textile)
         {
-            if (id != burialmain.Id)
+            if (id != textile.Id)
             {
                 return NotFound();
             }
@@ -100,12 +100,12 @@ namespace BYU_EGYPT_INTEX.Controllers
             {
                 try
                 {
-                    _context.Update(burialmain);
+                    _context.Update(textile);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BurialmainExists(burialmain.Id))
+                    if (!TextileExists(textile.Id))
                     {
                         return NotFound();
                     }
@@ -116,49 +116,49 @@ namespace BYU_EGYPT_INTEX.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(burialmain);
+            return View(textile);
         }
 
-        // GET: Burialmain/Delete/5
+        // GET: Textile/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
-            if (id == null || _context.Burialmains == null)
+            if (id == null || _context.Textiles == null)
             {
                 return NotFound();
             }
 
-            var burialmain = await _context.Burialmains
+            var textile = await _context.Textiles
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (burialmain == null)
+            if (textile == null)
             {
                 return NotFound();
             }
 
-            return View(burialmain);
+            return View(textile);
         }
 
-        // POST: Burialmain/Delete/5
+        // POST: Textile/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            if (_context.Burialmains == null)
+            if (_context.Textiles == null)
             {
-                return Problem("Entity set 'egyptbyuContext.Burialmains'  is null.");
+                return Problem("Entity set 'egyptbyuContext.Textiles'  is null.");
             }
-            var burialmain = await _context.Burialmains.FindAsync(id);
-            if (burialmain != null)
+            var textile = await _context.Textiles.FindAsync(id);
+            if (textile != null)
             {
-                _context.Burialmains.Remove(burialmain);
+                _context.Textiles.Remove(textile);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BurialmainExists(long id)
+        private bool TextileExists(long id)
         {
-          return (_context.Burialmains?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Textiles?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

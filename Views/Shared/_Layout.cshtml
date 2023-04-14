@@ -35,15 +35,15 @@
                     </li>
                     @if (SignInManager.IsSignedIn(User))
                     {
-                      <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                              Admin
-                          </a>
-                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="User" asp-action="Index" style="color: #333;">Manage Users</a></li>
-                              <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="User" asp-action="ManageRecords" style="color: #333;">Manage Records</a></li>
-                          </ul>
-                      </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Admin
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="User" asp-action="Index" style="color: #333;">Manage Users</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="User" asp-action="ManageRecords" style="color: #333;">Manage Records</a></li>
+                            </ul>
+                        </li>
                     }
                     <li class="nav-item">
                         <partial name="_LoginPartial" />
@@ -62,7 +62,7 @@
     <br />
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - BYU_EGYPT_INTEX - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            BYU Egypt Research - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

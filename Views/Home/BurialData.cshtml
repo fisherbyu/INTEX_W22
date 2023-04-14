@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Burial Database";
 }
+
 <br>
 <h1>Burial Site Database</h1>
 
@@ -110,3 +111,13 @@
 
     </div>
 
+
+<script>
+  function resetForm() {
+    document.getElementById("searchForm").reset();
+  }
+  
+  function submitForm() {
+    document.getElementById("searchForm").submit();
+  }
+</script>

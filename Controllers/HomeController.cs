@@ -12,6 +12,7 @@ using System.Drawing.Printing;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using BYU_EGYPT_INTEX.Areas.Identity.Data;
+using Newtonsoft.Json;
 
 namespace BYU_EGYPT_INTEX.Controllers;
 
@@ -22,6 +23,7 @@ public class HomeController : Controller
     private egyptbyuContext DbContext { get; set; }
     private ApplicationDbContext AuthLinkContext { get; set; }
     private IFilterRepository repo;
+    
 
     public HomeController(ILogger<HomeController> logger, egyptbyuContext temp_context, ApplicationDbContext tempLink, IFilterRepository temp)
     {
@@ -41,26 +43,51 @@ public class HomeController : Controller
         //Test Git again
     }
 
+    [HttpPost]
+    public IActionResult BurialData(SearchParams searchParams)
+    {
+        string json = JsonConvert.SerializeObject(searchParams);
 
-    public IActionResult BurialData(string? burialid, string? depth, string? ageatdeath, string? sex, string? haircolor,
-        int? estimatestature, string? headdirection, string? textilecolor, string? textilestructure, string? textilefunction,
-        int pageNum=1)
+        var options = new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.Strict,
+            Expires = DateTimeOffset.Now.AddMinutes(60)
+        };
+
+        Response.Cookies.Append("SessionData", json, options);
+
+        return RedirectToAction("BurialData");
+    }
+    [HttpGet]
+    public IActionResult BurialData(int pageNum=1)
     {
         int resultLength = 50;
 
+        SearchParams searchParams = new SearchParams();
+
+        if (Request.Cookies.TryGetValue("SessionData", out string json))
+        {
+            searchParams = JsonConvert.DeserializeObject<SearchParams>(json);
+        }
+
+
+
+        
         // Define the search criteria
         var searchCriteria = new
         {
-            Column1 = burialid,
-            Column2 = depth,
-            Column3 = ageatdeath,
-            Column4 = sex,
-            Column5 = haircolor,
-            Column6 = estimatestature,
-            Column7 = headdirection,
-            Column8 = textilecolor,
-            Column9 = textilestructure,
-            Column10 = textilefunction
+            Column1 = searchParams.burialid,
+            Column2 = searchParams.depth,
+            Column3 = searchParams.ageatdeath,
+            Column4 = searchParams.sex,
+            Column5 = searchParams.haircolor,
+            Column6 = searchParams.estimatestature,
+            Column7 = searchParams.headdirection,
+            Column8 = searchParams.textilecolor,
+            Column9 = searchParams.textilestructure,
+            Column10 = searchParams.textilefunction
         };
 
         // Count the number of records that match the search criteria
@@ -81,16 +108,16 @@ public class HomeController : Controller
         var data = new BurialmainsViewModel
         {
             masterfilters = repo.masterfilters
-                .Where(a => a.Ageatdeath == ageatdeath || ageatdeath == null)
-                .Where(b => b.Burialid == burialid || burialid == null)
-                .Where(c => c.Depth == depth || depth == null)
-                .Where(d => d.Sex == sex || sex == null)
-                .Where(e => e.Haircolor == haircolor || haircolor == null)
-                .Where(f => f.Estimatestature == estimatestature || estimatestature == null)
-                .Where(g => g.Headdirection == headdirection || headdirection == null)
-                .Where(h => h.Color == textilecolor || textilecolor == null)
-                .Where(i => i.TextileStructure == textilestructure || textilestructure == null)
-                .Where(j => j.Textilefunction == textilefunction || textilefunction == null)
+                .Where(a => a.Ageatdeath == searchParams.ageatdeath || searchParams.ageatdeath == null)
+                .Where(b => b.Burialid == searchParams.burialid || searchParams.burialid == null)
+                .Where(c => c.Depth == searchParams.depth || searchParams.depth == null)
+                .Where(d => d.Sex == searchParams.sex || searchParams.sex == null)
+                .Where(e => e.Haircolor == searchParams.haircolor || searchParams.haircolor == null)
+                .Where(f => f.Estimatestature == searchParams.estimatestature || searchParams.estimatestature == null)
+                .Where(g => g.Headdirection == searchParams.headdirection || searchParams.headdirection == null)
+                .Where(h => h.Color == searchParams.textilecolor || searchParams.textilecolor == null)
+                .Where(i => i.TextileStructure == searchParams.textilestructure || searchParams.textilestructure == null)
+                .Where(j => j.Textilefunction == searchParams.textilefunction || searchParams.textilefunction == null)
                 .OrderBy(x => x.Burialid)
                 .Skip((pageNum - 1) * resultLength)
                 .Take(resultLength),
@@ -102,9 +129,15 @@ public class HomeController : Controller
                 CurrentPage = pageNum
             }
         };
+
+        //ViewBag.Params = searchParams;
+
         return View(data);
 
     }
+
+
+   
 
     public IActionResult DisplayBurial(long ID)
     {
@@ -112,7 +145,7 @@ public class HomeController : Controller
 
         
         //Assemble Textiles
-        List<Textile> textiles = (from b in DbContext.Burialmains
+        List<BYU_EGYPT_INTEX.Models.Textile> textiles = (from b in DbContext.Burialmains
                                     join bt in DbContext.BurialmainTextiles on b.Id equals bt.MainBurialmainid
                                     join t in DbContext.Textiles on bt.MainTextileid equals t.Id
                                     where b.Id == ID
@@ -120,7 +153,7 @@ public class HomeController : Controller
 
         //Iterate and grab data for each Textile, add to empty List
         List<TextileComposite> textileComposites = new List<TextileComposite>();
-        foreach (Textile Index in textiles)
+        foreach (BYU_EGYPT_INTEX.Models.Textile Index in textiles)
         {
             
             List<Models.Color> colors = (from c in DbContext.Colors
@@ -128,13 +161,13 @@ public class HomeController : Controller
                                         where ct.MainTextileid == Index.Id
                                         select c).ToList();
             //Grab Functions 
-            List<Textilefunction> functions = (from tf in DbContext.Textilefunctions
+            List<Models.Textilefunction> functions = (from tf in DbContext.Textilefunctions
                                    join tft in DbContext.TextilefunctionTextiles on tf.Id equals tft.MainTextilefunctionid
                                    where tft.MainTextileid == Index.Id
                                    select tf).ToList();
 
             //Grab Structures
-            List<Structure> structures = (from s in DbContext.Structures
+            List<Models.Structure> structures = (from s in DbContext.Structures
                                                join st in DbContext.StructureTextiles on s.Id equals st.MainStructureid
                                                where st.MainTextileid == Index.Id
                                                select s).ToList();

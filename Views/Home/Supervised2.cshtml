@@ -296,7 +296,6 @@
                     console.log(prediction);
                     // Update the h4 tag with the prediction result
                     document.querySelector('#predictionResult').textContent = String(prediction.predictedValue);
-                    console.log("it got here at least");
                 })
                 .catch(error => {
                     alert("Something went wrong...");

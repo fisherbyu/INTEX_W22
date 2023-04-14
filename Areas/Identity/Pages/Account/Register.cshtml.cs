@@ -127,8 +127,10 @@ namespace BYU_EGYPT_INTEX.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-                    //Add default user role to new account
-                    var defaultrole = _roleManager.FindByNameAsync("User").Result;
+                    //Add default user role to new account, does not give access to admin pages
+                    // "User" role has access to manage records + Public
+                    // "Administrator" role has access to manage users and assign roles + User access
+                    var defaultrole = _roleManager.FindByNameAsync("Public").Result;
                     if (defaultrole != null)
                     {
                         IdentityResult roleresult = await _userManager.AddToRoleAsync(user, defaultrole.Name);
